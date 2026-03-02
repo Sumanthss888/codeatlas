@@ -300,4 +300,5 @@ Development activity log for: 2026-06-26
 [2026-03-29 upgrade commit #19] - style(cursor): adjust width and padding caret attributes
 [2026-03-31 upgrade commit #20] - chore(onboarding): clean up legacy styles and configuration rules
 [2026-03-01 docs commit #1] - docs(readme): expand setup instructions for local environment (part 1)
+[2026-03-02 docs commit #1] - docs(readme): add troubleshooting notes for rate limiting (part 1)
 
