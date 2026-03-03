@@ -302,4 +302,5 @@ Development activity log for: 2026-06-26
 [2026-03-01 docs commit #1] - docs(readme): expand setup instructions for local environment (part 1)
 [2026-03-02 docs commit #1] - docs(readme): add troubleshooting notes for rate limiting (part 1)
 [2026-03-03 docs commit #1] - docs(readme): update environment variable definitions (part 1)
+[2026-03-03 docs commit #2] - docs(readme): include visual design system details (part 2)
 
