@@ -280,4 +280,5 @@ Development activity log for: 2026-06-26
 [2026-04-29 upgrade commit #19] - style(cursor): adjust margins and caret width parameters
 [2026-04-30 upgrade commit #20] - chore(onboarding): clean up legacy styles and settings references
 [2026-03-02 upgrade commit #1] - refactor(onboarding): refine display rules for logo text elements
+[2026-03-03 upgrade commit #2] - feat(landing): optimize text glow effect keyframe animations
 
