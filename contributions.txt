@@ -305,4 +305,5 @@ Development activity log for: 2026-06-26
 [2026-03-03 docs commit #2] - docs(readme): include visual design system details (part 2)
 [2026-03-03 docs commit #3] - docs(readme): document command palette search shortcuts (part 3)
 [2026-03-03 docs commit #4] - docs(readme): explain architecture data flow pipeline (part 4)
+[2026-03-03 docs commit #5] - docs(readme): add project directory tree details (part 5)
 
