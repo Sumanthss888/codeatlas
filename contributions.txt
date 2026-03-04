@@ -308,4 +308,5 @@ Development activity log for: 2026-06-26
 [2026-03-03 docs commit #5] - docs(readme): add project directory tree details (part 5)
 [2026-03-04 docs commit #1] - docs(readme): detail technology stack components table (part 1)
 [2026-03-04 docs commit #2] - docs(readme): outline keyboard shortcuts reference chart (part 2)
+[2026-03-04 docs commit #3] - docs(readme): document vector embedding ingestion stages (part 3)
 
