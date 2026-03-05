@@ -312,4 +312,5 @@ Development activity log for: 2026-06-26
 [2026-03-05 docs commit #1] - docs(readme): note Llama model deployment endpoints (part 1)
 [2026-03-05 docs commit #2] - docs(readme): add description for sandbox repository entries (part 2)
 [2026-03-05 docs commit #3] - docs(readme): document local presence settings (part 3)
+[2026-03-05 docs commit #4] - docs(readme): clarify MIT licensing constraints (part 4)
 
