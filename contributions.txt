@@ -320,4 +320,5 @@ Development activity log for: 2026-06-26
 [2026-03-06 docs commit #4] - docs(readme): describe panel animation settings (part 4)
 [2026-03-06 docs commit #5] - docs(readme): add guidelines for layout styling overrides (part 5)
 [2026-03-07 docs commit #1] - docs(readme): expand setup instructions for local environment (part 1)
+[2026-03-07 docs commit #2] - docs(readme): add troubleshooting notes for rate limiting (part 2)
 
