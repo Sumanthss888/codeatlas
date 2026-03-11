@@ -330,4 +330,5 @@ Development activity log for: 2026-06-26
 [2026-03-09 docs commit #1] - docs(readme): outline keyboard shortcuts reference chart (part 1)
 [2026-03-09 docs commit #2] - docs(readme): document vector embedding ingestion stages (part 2)
 [2026-03-09 docs commit #3] - docs(readme): note Llama model deployment endpoints (part 3)
+[2026-03-11 docs commit #1] - docs(readme): add description for sandbox repository entries (part 1)
 
