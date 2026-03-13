@@ -337,4 +337,5 @@ Development activity log for: 2026-06-26
 [2026-03-12 docs commit #3] - docs(readme): add developer onboarding guide reference (part 3)
 [2026-03-12 docs commit #4] - docs(readme): explain state transitions in components (part 4)
 [2026-03-13 docs commit #1] - docs(readme): add troubleshooting notes for build caching (part 1)
+[2026-03-13 docs commit #2] - docs(readme): describe panel animation settings (part 2)
 
