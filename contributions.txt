@@ -289,4 +289,5 @@ Development activity log for: 2026-06-26
 [2026-03-12 upgrade commit #8] - feat(reduced-motion): skip typewriter loop in accessibility settings
 [2026-03-13 upgrade commit #9] - fix(onboarding): resolve vertical alignment offsets in mono texts
 [2026-03-15 upgrade commit #10] - style(theme): optimize gradient background color stops
+[2026-03-16 upgrade commit #11] - perf(hero): throttle typing character execution delay timers
 
