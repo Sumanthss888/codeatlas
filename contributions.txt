@@ -363,4 +363,5 @@ Development activity log for: 2026-06-26
 [2026-03-22 docs commit #1] - docs(readme): add troubleshooting notes for rate limiting (part 1)
 [2026-03-22 docs commit #2] - docs(readme): update environment variable definitions (part 2)
 [2026-03-23 docs commit #1] - docs(readme): include visual design system details (part 1)
+[2026-03-24 docs commit #1] - docs(readme): document command palette search shortcuts (part 1)
 
