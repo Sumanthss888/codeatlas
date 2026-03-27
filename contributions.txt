@@ -296,4 +296,5 @@ Development activity log for: 2026-06-26
 [2026-03-22 upgrade commit #15] - feat(motion): restrict typewriter cursor to inline layout
 [2026-03-23 upgrade commit #16] - style(theme): enhance drop shadow brightness stops on logo
 [2026-03-26 upgrade commit #17] - refactor(hero): remove absolute layouts from word cycle selectors
+[2026-03-27 upgrade commit #18] - fix(a11y): unify h1 wrapper markup container
 
