@@ -378,4 +378,5 @@ Development activity log for: 2026-06-26
 [2026-03-29 docs commit #3] - docs(readme): explain state transitions in components (part 3)
 [2026-03-29 docs commit #4] - docs(readme): add troubleshooting notes for build caching (part 4)
 [2026-03-30 docs commit #1] - docs(readme): describe panel animation settings (part 1)
+[2026-03-30 docs commit #2] - docs(readme): add guidelines for layout styling overrides (part 2)
 
