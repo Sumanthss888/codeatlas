@@ -240,3 +240,4 @@ Development activity log for: 2026-06-26
 [2026-04-30 commit #6] - fix(a11y): add aria-hidden properties to decorative animated slot
 [2026-04-30 commit #7] - fix(motion): honor prefers-reduced-motion media query checks
 [2026-04-01 extra commit #1] - refactor(hero): remove absolute text positioning styles
+[2026-04-02 extra commit #1] - style(hero): enforce inline-block baseline vertical alignment
