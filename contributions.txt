@@ -98,3 +98,4 @@ Development activity log for: 2026-06-26
 [2026-04-02 commit #2] - feat(page): support local storage cache validation constraints
 [2026-04-02 commit #3] - fix(hero): prevent layout shifting on mobile viewport text wraps
 [2026-04-02 commit #4] - fix(a11y): add aria-hidden properties to decorative animated slot
+[2026-04-02 commit #5] - fix(motion): honor prefers-reduced-motion media query checks
