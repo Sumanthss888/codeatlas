@@ -116,3 +116,4 @@ Development activity log for: 2026-06-26
 [2026-04-04 commit #5] - perf(cache): reuse static repository brief response datasets
 [2026-04-04 commit #6] - style(hero): polish active hover states on showcase pill buttons
 [2026-04-04 commit #7] - style(sidebar): reduce border width outline on metrics indicator cards
+[2026-04-04 commit #8] - style(theme): enhance dark mode surface contrast ratio parameters
