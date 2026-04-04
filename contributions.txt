@@ -111,3 +111,4 @@ Development activity log for: 2026-06-26
 [2026-04-03 commit #9] - refactor(overlay): simplify overlay active tab routing parameters
 [2026-04-04 commit #1] - perf(hero): pause animation frame checks on Page Visibility API hidden event
 [2026-04-04 commit #2] - perf(motion): reduce paint invalidation cycles on cursor blinking step
+[2026-04-04 commit #3] - perf(canvas): throttle coordinate resize listener handlers inside map
