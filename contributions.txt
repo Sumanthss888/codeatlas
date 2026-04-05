@@ -261,4 +261,5 @@ Development activity log for: 2026-06-26
 [2026-04-30 extra commit #1] - style(hero): sync layout behavior with custom styling requirements
 [2026-04-02 upgrade commit #1] - refactor(onboarding): refine display rules for logo label element
 [2026-04-03 upgrade commit #2] - feat(landing): add custom transitions for glow effect animation
+[2026-04-05 upgrade commit #3] - style(hero): polish cursor blinking keyframes definition
 
