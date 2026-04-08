@@ -131,3 +131,4 @@ Development activity log for: 2026-06-26
 [2026-04-08 commit #5] - feat(overlay): configure transition triggers on command surfaces
 [2026-04-08 commit #6] - feat(settings): allow custom seasonal repository showcases selection
 [2026-04-08 commit #7] - feat(page): support local storage cache validation constraints
+[2026-04-08 commit #8] - fix(hero): prevent layout shifting on mobile viewport text wraps
