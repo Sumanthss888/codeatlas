@@ -135,3 +135,4 @@ Development activity log for: 2026-06-26
 [2026-04-09 commit #1] - fix(a11y): add aria-hidden properties to decorative animated slot
 [2026-04-09 commit #2] - fix(motion): honor prefers-reduced-motion media query checks
 [2026-04-09 commit #3] - fix(perf): clean up timeouts on headline component unmount lifecycle
+[2026-04-09 commit #4] - fix(layout): resolve layout wrap on directory depth labels in compact sidebar
