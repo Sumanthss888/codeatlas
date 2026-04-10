@@ -142,3 +142,4 @@ Development activity log for: 2026-06-26
 [2026-04-09 commit #8] - refactor(layout): simplify inline grid row layout constraints
 [2026-04-10 commit #1] - refactor(typography): consolidate font family definitions to JetBrains Mono
 [2026-04-10 commit #2] - refactor(sidebar): isolate metrics grid cards into individual component modules
+[2026-04-10 commit #3] - refactor(chat): prune legacy state parameters from input controllers list
