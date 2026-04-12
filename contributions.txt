@@ -244,3 +244,4 @@ Development activity log for: 2026-06-26
 [2026-04-07 extra commit #1] - fix(hero): prevent sentence fragmentation across wrapping lines
 [2026-04-10 extra commit #1] - chore(hero): remove unused width reservation grid anchor tags
 [2026-04-11 extra commit #1] - docs(hero): document inline layout constraints mapping
+[2026-04-12 extra commit #1] - style(hero): adjust cursor horizontal padding offset rules
