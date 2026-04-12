@@ -191,9 +191,9 @@ You can now:
     <div className="app-shell">
       <Sidebar
         activeFile={activeFile}
-        onFileSelect={handleFileClick} // 🔥 FIXED HERE
+        onFileSelect={handleFileClick}
         files={repoFiles}
-        fetchState={fetchState}
+        
       />
 
       <main className="main-content">
