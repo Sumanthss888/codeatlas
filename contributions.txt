@@ -152,3 +152,4 @@ Development activity log for: 2026-06-26
 [2026-04-14 commit #1] - style(hero): polish active hover states on showcase pill buttons
 [2026-04-14 commit #2] - style(sidebar): reduce border width outline on metrics indicator cards
 [2026-04-14 commit #3] - style(theme): enhance dark mode surface contrast ratio parameters
+[2026-04-14 commit #4] - style(typography): set tabular-nums variants on workspace file count labels
