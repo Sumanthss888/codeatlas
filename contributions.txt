@@ -247,3 +247,4 @@ Development activity log for: 2026-06-26
 [2026-04-12 extra commit #1] - style(hero): adjust cursor horizontal padding offset rules
 [2026-04-15 extra commit #1] - fix(a11y): verify single semantic heading element wrapper constraints
 [2026-04-16 extra commit #1] - refactor(hero): simplify inline display properties on active repo span
+[2026-04-16 extra commit #2] - style(hero): refine text transition translate offset depth
