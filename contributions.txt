@@ -270,4 +270,5 @@ Development activity log for: 2026-06-26
 [2026-04-13 upgrade commit #9] - fix(onboarding): solve vertical alignment offsets on mono fonts
 [2026-04-15 upgrade commit #10] - style(theme): optimize gradient stops for text labels
 [2026-04-16 upgrade commit #11] - perf(hero): throttle typing character delay execution
+[2026-04-17 upgrade commit #12] - refactor(a11y): add aria-hidden descriptors to decorative spans
 
