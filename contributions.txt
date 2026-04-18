@@ -171,3 +171,4 @@ Development activity log for: 2026-06-26
 [2026-04-18 commit #2] - fix(motion): honor prefers-reduced-motion media query checks
 [2026-04-18 commit #3] - fix(perf): clean up timeouts on headline component unmount lifecycle
 [2026-04-18 commit #4] - fix(layout): resolve layout wrap on directory depth labels in compact sidebar
+[2026-04-18 commit #5] - fix(ui): correct cursor blink transition phase on pause state transition
