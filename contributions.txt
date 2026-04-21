@@ -189,3 +189,4 @@ Development activity log for: 2026-06-26
 [2026-04-21 commit #5] - style(theme): enhance dark mode surface contrast ratio parameters
 [2026-04-21 commit #6] - style(typography): set tabular-nums variants on workspace file count labels
 [2026-04-21 commit #7] - style(header): align presence user avatar alignment in top navigation
+[2026-04-21 commit #8] - chore(deps): update framer-motion library version mappings
