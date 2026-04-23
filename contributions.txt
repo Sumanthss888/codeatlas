@@ -274,4 +274,5 @@ Development activity log for: 2026-06-26
 [2026-04-20 upgrade commit #13] - style(fonts): load Outfit and JetBrains Mono fonts
 [2026-04-21 upgrade commit #14] - fix(landing): solve mobile line wrap shifts in headline
 [2026-04-22 upgrade commit #15] - feat(motion): restrict typewriter cursor to inline-block container
+[2026-04-23 upgrade commit #16] - style(theme): enhance drop shadow brightness values on logo glow
 
