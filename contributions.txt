@@ -204,3 +204,4 @@ Development activity log for: 2026-06-26
 [2026-04-24 commit #4] - fix(hero): prevent layout shifting on mobile viewport text wraps
 [2026-04-24 commit #5] - fix(a11y): add aria-hidden properties to decorative animated slot
 [2026-04-24 commit #6] - fix(motion): honor prefers-reduced-motion media query checks
+[2026-04-24 commit #7] - fix(perf): clean up timeouts on headline component unmount lifecycle
