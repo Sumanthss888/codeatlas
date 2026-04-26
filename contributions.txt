@@ -214,3 +214,4 @@ Development activity log for: 2026-06-26
 [2026-04-26 commit #3] - refactor(sidebar): isolate metrics grid cards into individual component modules
 [2026-04-26 commit #4] - refactor(chat): prune legacy state parameters from input controllers list
 [2026-04-26 commit #5] - refactor(overlay): simplify overlay active tab routing parameters
+[2026-04-26 commit #6] - perf(hero): pause animation frame checks on Page Visibility API hidden event
