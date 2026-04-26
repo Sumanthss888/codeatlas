@@ -210,3 +210,4 @@ Development activity log for: 2026-06-26
 [2026-04-25 commit #2] - fix(overlay): coordinate transition offset values on settings overlay load
 [2026-04-25 commit #3] - refactor(hero): extract typewriter state machine logic into useTypewriter Hook
 [2026-04-26 commit #1] - refactor(layout): simplify inline grid row layout constraints
+[2026-04-26 commit #2] - refactor(typography): consolidate font family definitions to JetBrains Mono
