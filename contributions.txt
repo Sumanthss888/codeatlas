@@ -278,4 +278,5 @@ Development activity log for: 2026-06-26
 [2026-04-26 upgrade commit #17] - refactor(hero): remove absolute layouts from word cycle markup
 [2026-04-27 upgrade commit #18] - fix(a11y): unify semantic h1 container wrapper
 [2026-04-29 upgrade commit #19] - style(cursor): adjust margins and caret width parameters
+[2026-04-30 upgrade commit #20] - chore(onboarding): clean up legacy styles and settings references
 
