@@ -46,3 +46,4 @@ Development activity log for: 2026-06-26
 [2026-05-20 commit #6] - refactor: modularize repository detail components for reusability
 [2026-05-20 commit #7] - refactor: separate command palette key listeners from global event system
 [2026-05-23 commit #1] - feat: add validation checking for repository URLs
+[2026-05-23 commit #2] - feat: support read-only mode validation flags
