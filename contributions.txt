@@ -54,3 +54,4 @@ Development activity log for: 2026-06-26
 [2026-05-23 commit #7] - feat: support JSON workspace export function in preferences
 [2026-05-23 commit #8] - feat: introduce contextual quick action explorer templates
 [2026-05-23 commit #9] - feat: add clean checkmark indicators on success copy events
+[2026-05-23 commit #10] - feat: support dynamic file depth calculation in workspace metrics
