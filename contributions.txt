@@ -56,3 +56,4 @@ Development activity log for: 2026-06-26
 [2026-05-23 commit #9] - feat: add clean checkmark indicators on success copy events
 [2026-05-23 commit #10] - feat: support dynamic file depth calculation in workspace metrics
 [2026-05-23 commit #11] - feat: support customizable theme override selections in dashboard
+[2026-05-26 commit #1] - fix: adjust layout offset in workspaces floating header
