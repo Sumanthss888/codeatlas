@@ -63,3 +63,4 @@ Development activity log for: 2026-06-26
 [2026-05-26 commit #5] - fix: resolve layout wrap on directory depth labels in compact sidebar
 [2026-06-01 commit #1] - perf: accelerate rendering path for repository summary grid
 [2026-06-01 commit #2] - perf: minimize framer motion layouts repaint trigger
+[2026-06-01 commit #3] - perf: throttle workspace canvas resize event listeners
