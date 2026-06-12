@@ -84,3 +84,4 @@ Development activity log for: 2026-06-26
 [2026-06-12 commit #5] - chore: configure build logs output target path
 [2026-06-12 commit #6] - chore: update package lock versioning metadata
 [2026-06-12 commit #7] - chore: document workspace overlay structure and component maps
+[2026-06-12 commit #8] - chore: update readme description for sandbox showcases
