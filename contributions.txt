@@ -86,3 +86,4 @@ Development activity log for: 2026-06-26
 [2026-06-12 commit #7] - chore: document workspace overlay structure and component maps
 [2026-06-12 commit #8] - chore: update readme description for sandbox showcases
 [2026-06-12 commit #9] - chore: remove legacy repo input controller template
+[2026-06-12 commit #10] - chore: register theme verification scripts in document header
