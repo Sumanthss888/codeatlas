@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { X, ShieldAlert, Sparkles, Check, Trash2, Database, Laptop } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type Props = {
   isOpen: boolean;
@@ -27,6 +27,7 @@ export default function PreferencesPanel({
 }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const [pendingConfirm, setPendingConfirm] = useState<string | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Focus Trapping
   useEffect(() => {
@@ -174,10 +175,10 @@ export default function PreferencesPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby="preferences-title"
-        initial={{ x: "100%", opacity: 0.95 }}
+        initial={shouldReduceMotion ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0.95 }}
         animate={{ x: 0, opacity: 1 }}
-        exit={{ x: "100%", opacity: 0.95 }}
-        transition={{ duration: 0.18, ease: "easeInOut" }}
+        exit={shouldReduceMotion ? { x: 0, opacity: 1 } : { x: "100%", opacity: 0.95 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.18, ease: "easeInOut" }}
       >
         {/* Drawer Header */}
         <div className="preferences-header">

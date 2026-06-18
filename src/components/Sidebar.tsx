@@ -14,6 +14,7 @@ import {
   Search,
   ChevronDown,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { LogoIcon } from "./Logo";
 
@@ -102,9 +103,17 @@ type Props = {
   activeFile: string | null;
   onFileSelect: (filePath: string) => void;
   files: RepoFile[];
+  isOpen?: boolean;
+  onClose?: () => void;
 };
 
-export default function Sidebar({ activeFile, onFileSelect, files }: Props) {
+export default function Sidebar({
+  activeFile,
+  onFileSelect,
+  files,
+  isOpen = false,
+  onClose,
+}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const shouldReduceMotion = useReducedMotion();
@@ -277,7 +286,39 @@ export default function Sidebar({ activeFile, onFileSelect, files }: Props) {
     });
 
   return (
-    <aside className="sidebar glass-panel">
+    <aside className={`sidebar glass-panel ${isOpen ? "open" : ""}`}>
+      {onClose && (
+        <button
+          className="sidebar-close-btn mobile-only-flex"
+          onClick={onClose}
+          aria-label="Close file explorer"
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "12px",
+            background: "transparent",
+            border: "none",
+            color: "var(--text-muted)",
+            cursor: "pointer",
+            zIndex: 10,
+            padding: "4px",
+            borderRadius: "4px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "var(--bg-glass-hover)";
+            e.currentTarget.style.color = "var(--text-primary)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "var(--text-muted)";
+          }}
+        >
+          <X size={15} />
+        </button>
+      )}
       {/* Brand Logo inside Sidebar (not displayed on Desktop because it is in top bar, but styled just in case) */}
       <div className="sidebar-logo">
         <div className="logo-mark">
@@ -325,6 +366,7 @@ export default function Sidebar({ activeFile, onFileSelect, files }: Props) {
           type="text"
           className="sidebar-search-input"
           placeholder="Filter files..."
+          aria-label="Filter codebase files"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

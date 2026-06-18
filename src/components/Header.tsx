@@ -81,6 +81,7 @@ export default function Header({
         <button
           id="header-settings-btn"
           onClick={onSettingsClick}
+          aria-label="Open workspace preferences panel"
           style={{
             background: "transparent",
             border: "none",
@@ -107,6 +108,7 @@ export default function Header({
         </button>
 
         <button
+          aria-label="Open profile options"
           style={{
             background: "transparent",
             border: "none",

@@ -682,6 +682,7 @@ export default function ArchitectureMap({
             className={`theme-switch-btn ${layoutType === "force" ? "active" : ""}`}
             style={{ padding: "4px 10px" }}
             title="Spring force arrangement layout"
+            aria-label="Toggle spring force arrangement layout"
           >
             Force Directed
           </button>
@@ -690,6 +691,7 @@ export default function ArchitectureMap({
             className={`theme-switch-btn ${layoutType === "hierarchical" ? "active" : ""}`}
             style={{ padding: "4px 10px" }}
             title="Horizontal folder-depth layers layout"
+            aria-label="Toggle horizontal folder-depth layers layout"
           >
             Hierarchical
           </button>
@@ -892,6 +894,7 @@ export default function ArchitectureMap({
             className="theme-switch-btn"
             style={{ padding: "6px" }}
             title="Zoom In"
+            aria-label="Zoom in"
           >
             <ZoomIn size={14} />
           </button>
@@ -900,6 +903,7 @@ export default function ArchitectureMap({
             className="theme-switch-btn"
             style={{ padding: "6px" }}
             title="Zoom Out"
+            aria-label="Zoom out"
           >
             <ZoomOut size={14} />
           </button>
@@ -908,6 +912,7 @@ export default function ArchitectureMap({
             className="theme-switch-btn"
             style={{ padding: "6px" }}
             title="Fit graph contents on screen"
+            aria-label="Fit graph contents on screen"
           >
             <Maximize2 size={14} />
           </button>
@@ -916,6 +921,7 @@ export default function ArchitectureMap({
             className="theme-switch-btn"
             style={{ padding: "6px" }}
             title="Reset position and zoom"
+            aria-label="Reset position and zoom"
           >
             <RefreshCw size={13} />
           </button>
@@ -1177,6 +1183,7 @@ export default function ArchitectureMap({
                 onClick={() => setIsFocusMode(!isFocusMode)}
                 className={`theme-switch-btn ${isFocusMode ? "active" : ""}`}
                 style={{ padding: "4px 10px" }}
+                aria-label="Toggle isolate connections focus mode"
               >
                 {isFocusMode ? "Focus Active" : "Focus Mode"}
               </button>

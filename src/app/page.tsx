@@ -40,6 +40,7 @@ export default function Home() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [recentRepos, setRecentRepos] = useState<string[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -517,6 +518,7 @@ You can now:
   // ── 🔥 NEW: FILE CLICK → AI EXPLAIN ───────────────────
   const handleFileClick = (filePath: string) => {
     setActiveFile(filePath);
+    setIsSidebarOpen(false);
 
     const question = `Explain this file: ${filePath}. What does it do and where is it used?`;
 
@@ -555,13 +557,23 @@ You can now:
               animate={{ opacity: 1, x: 0 }}
               transition={sidebarTransition}
               style={{ display: "flex", height: "100%" }}
+              className={`sidebar-wrapper ${isSidebarOpen ? "open" : ""}`}
             >
               <Sidebar
                 activeFile={activeFile}
                 onFileSelect={handleFileClick}
                 files={repoFiles}
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
               />
             </motion.div>
+
+            {isSidebarOpen && (
+              <div
+                className="sidebar-backdrop mobile-only-block"
+                onClick={() => setIsSidebarOpen(false)}
+              />
+            )}
 
             <motion.main
               className="main-content"
@@ -571,6 +583,25 @@ You can now:
             >
               <div className="workspace-tab-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div className="workspace-tabs-group">
+                  {/* Mobile-only Files Explorer Trigger */}
+                  <button
+                    className="workspace-tab-btn mobile-only-flex"
+                    onClick={() => setIsSidebarOpen(true)}
+                    title="Open repository files explorer"
+                  >
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="tab-icon"
+                    >
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Files
+                  </button>
                   <button
                     className={`workspace-tab-btn ${activeTab === "overview" ? "active" : ""}`}
                     onClick={() => handleSetActiveTab("overview")}
