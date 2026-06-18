@@ -10,6 +10,7 @@ type Props = {
   onChangeRepo?: () => void;
   theme?: "light" | "dark" | "system";
   applyTheme?: (theme: "light" | "dark" | "system") => void;
+  onSettingsClick?: () => void;
 };
 
 export default function Header({
@@ -18,6 +19,7 @@ export default function Header({
   onChangeRepo,
   theme = "system",
   applyTheme = () => {},
+  onSettingsClick,
 }: Props) {
   // Extract simple repository name for the indicator
   const cleanRepoName = activeRepo
@@ -77,6 +79,8 @@ export default function Header({
         </div>
 
         <button
+          id="header-settings-btn"
+          onClick={onSettingsClick}
           style={{
             background: "transparent",
             border: "none",

@@ -6,9 +6,10 @@ import ChatWindow from "@/components/ChatWindow";
 import RepoInput from "@/components/RepoInput";
 import Header from "@/components/Header";
 import CommandPalette from "@/components/CommandPalette";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import RepositoryOverview from "@/components/RepositoryOverview";
 import ArchitectureMap from "@/components/ArchitectureMap";
+import PreferencesPanel from "@/components/PreferencesPanel";
 import { Sparkles } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────
@@ -37,6 +38,76 @@ export type FetchState =
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [recentRepos, setRecentRepos] = useState<string[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("codeatlas_recent_repos");
+      if (saved) {
+        setRecentRepos(JSON.parse(saved));
+      }
+    } catch {}
+  }, []);
+
+  const addRecentRepo = (url: string) => {
+    try {
+      const saved = localStorage.getItem("codeatlas_recent_repos");
+      let list: string[] = saved ? JSON.parse(saved) : [];
+      list = [url, ...list.filter((x) => x !== url)].slice(0, 10);
+      setRecentRepos(list);
+      localStorage.setItem("codeatlas_recent_repos", JSON.stringify(list));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleClearRecentRepos = () => {
+    try {
+      localStorage.removeItem("codeatlas_recent_repos");
+      setRecentRepos([]);
+    } catch {}
+  };
+
+  const handleClearCache = () => {
+    try {
+      sessionStorage.clear();
+      setActiveTab("chat");
+    } catch {}
+  };
+
+  const handleResetWorkspace = () => {
+    try {
+      localStorage.removeItem("theme");
+      localStorage.removeItem("codeatlas_recent_repos");
+      sessionStorage.clear();
+
+      setRecentRepos([]);
+      setTheme("system");
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", isDark);
+
+      setMessages([
+        {
+          id: "1",
+          role: "assistant",
+          content:
+            "Welcome to **CodeAtlas** 🗺️ — paste a GitHub repository URL above and I'll analyze your codebase.",
+          timestamp: new Date(),
+        },
+      ]);
+      setRepoFiles([]);
+      setActiveFile(null);
+      setFetchState({ status: "idle" });
+      setCurrentRepoUrl(null);
+      setActiveTab("chat");
+      setRepoSummary(null);
+      setIsSummaryLoading(false);
+      setGithubMetadata(null);
+      setIsDemoMode(false);
+      setIsSettingsOpen(false);
+    } catch {}
+  };
 
   useEffect(() => {
     // Read persisted theme from localStorage on mount
@@ -230,6 +301,7 @@ export default function Home() {
       setRepoFiles(data.files);
       setGithubMetadata(data.githubMetadata || null);
       setFetchState({ status: "success", totalFiles: data.totalFiles });
+      addRecentRepo(url.trim());
 
       // Default activeTab to overview when loaded, unless they previously closed it
       const wasClosed = sessionStorage.getItem("codeatlas_overview_closed") === "true";
@@ -472,6 +544,7 @@ You can now:
         onChangeRepo={handleChangeRepo}
         theme={theme}
         applyTheme={applyTheme}
+        onSettingsClick={() => setIsSettingsOpen(true)}
       />
 
       <div className="app-viewport">
@@ -840,6 +913,21 @@ You can now:
         currentTheme={theme}
         applyTheme={applyTheme}
       />
+
+      <AnimatePresence>
+        {isSettingsOpen && (
+          <PreferencesPanel
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
+            theme={theme}
+            applyTheme={applyTheme}
+            onClearRecentRepos={handleClearRecentRepos}
+            onClearCache={handleClearCache}
+            onResetWorkspace={handleResetWorkspace}
+            recentReposCount={recentRepos.length}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
