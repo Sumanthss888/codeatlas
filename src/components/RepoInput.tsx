@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, KeyboardEvent } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -26,6 +27,7 @@ function isLikelyGitHubUrl(value: string): boolean {
 
 export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
   const [url, setUrl] = useState("");
+  const shouldReduceMotion = useReducedMotion();
 
   const handleAnalyze = () => {
     const trimmed = url.trim();
@@ -39,119 +41,135 @@ export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
 
   const canSubmit = !isAnalyzing && isLikelyGitHubUrl(url);
 
+  const buttonHover = shouldReduceMotion || !canSubmit ? {} : { scale: 1.01 };
+  const buttonTap = shouldReduceMotion || !canSubmit ? {} : { scale: 0.97 };
+  const chipHover = shouldReduceMotion ? {} : { scale: 1.02, y: -1 };
+  const chipTap = shouldReduceMotion ? {} : { scale: 0.98, y: 0 };
+
   return (
-    <div className="repo-input-section">
+    <div className="repo-input-section glass-panel">
       <div className="repo-input-inner">
-        {/* URL field */}
-        <div className="repo-input-wrapper">
-          <span className="repo-input-icon">
+        <div className="repo-input-row">
+          {/* URL field */}
+          <div className="repo-input-wrapper">
+            <span className="repo-input-icon">
+              {isAnalyzing ? (
+                <span className="btn-spinner" style={{ width: 12, height: 12 }} />
+              ) : (
+                "⌥"
+              )}
+            </span>
+            <input
+              type="text"
+              className="repo-input-field"
+              placeholder="https://github.com/owner/repository"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={isAnalyzing}
+              aria-label="GitHub repository URL"
+            />
+          </div>
+
+          {/* CTA button */}
+          <motion.button
+            whileHover={buttonHover}
+            whileTap={buttonTap}
+            className="analyze-btn"
+            onClick={handleAnalyze}
+            disabled={!canSubmit}
+            aria-busy={isAnalyzing}
+          >
             {isAnalyzing ? (
-              <span className="btn-spinner" style={{ width: 12, height: 12 }} />
+              <>
+                <span className="btn-spinner" />
+                Analyzing…
+              </>
             ) : (
-              "⌥"
+              <>
+                <span>⚡</span>
+                Analyze Repository
+              </>
             )}
-          </span>
-          <input
-            type="text"
-            className="repo-input-field"
-            placeholder="https://github.com/owner/repository"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={isAnalyzing}
-            aria-label="GitHub repository URL"
-          />
+          </motion.button>
         </div>
 
-        {/* CTA button */}
-        <button
-          className="analyze-btn"
-          onClick={handleAnalyze}
-          disabled={!canSubmit}
-          aria-busy={isAnalyzing}
-        >
-          {isAnalyzing ? (
-            <>
-              <span className="btn-spinner" />
-              Analyzing…
-            </>
-          ) : (
-            <>
-              <span>⚡</span>
-              Analyze Repository
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Example repo shortcuts — only shown when the field is empty */}
-      {!url && !isAnalyzing && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            marginTop: "10px",
-            flexWrap: "wrap",
-          }}
-        >
-          <span style={{ fontSize: "11px", color: "var(--text-muted)", flexShrink: 0 }}>
-            Try:
-          </span>
-          {EXAMPLE_REPOS.map((repo) => (
-            <button
-              key={repo}
-              onClick={() => setUrl(`https://github.com/${repo}`)}
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "99px",
-                padding: "3px 10px",
-                fontSize: "11px",
-                color: "var(--text-secondary)",
-                cursor: "pointer",
-                fontFamily: "'JetBrains Mono', monospace",
-                transition: "all 0.15s ease",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "var(--border-strong)";
-                el.style.color = "var(--text-accent)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "var(--border-subtle)";
-                el.style.color = "var(--text-secondary)";
-              }}
-            >
-              {repo}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Inline validation hint */}
-      {url && !isLikelyGitHubUrl(url) && !isAnalyzing && (
-        <p
-          style={{
-            marginTop: "8px",
-            fontSize: "11px",
-            color: "#f87171",
-          }}
-        >
-          Enter a valid GitHub URL, e.g.{" "}
-          <code
+        {/* Example repo shortcuts — only shown when the field is empty */}
+        {!url && !isAnalyzing && (
+          <div
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              background: "rgba(239,68,68,0.1)",
-              padding: "1px 4px",
-              borderRadius: "4px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              marginTop: "4px",
+              flexWrap: "wrap",
             }}
           >
-            https://github.com/owner/repo
-          </code>
-        </p>
-      )}
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", flexShrink: 0 }}>
+              Try:
+            </span>
+            {EXAMPLE_REPOS.map((repo) => (
+              <motion.button
+                key={repo}
+                whileHover={chipHover}
+                whileTap={chipTap}
+                onClick={() => setUrl(`https://github.com/${repo}`)}
+                style={{
+                  background: "var(--bg-glass)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  border: "1px solid var(--border-default)",
+                  borderRadius: "var(--radius-sm)",
+                  padding: "4px 12px",
+                  fontSize: "11px",
+                  color: "var(--text-secondary)",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-mono-family)",
+                  transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--accent-color)";
+                  el.style.color = "var(--text-primary)";
+                  el.style.background = "var(--bg-glass-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.borderColor = "var(--border-default)";
+                  el.style.color = "var(--text-secondary)";
+                  el.style.background = "var(--bg-glass)";
+                }}
+              >
+                {repo}
+              </motion.button>
+            ))}
+          </div>
+        )}
+
+        {/* Inline validation hint */}
+        {url && !isLikelyGitHubUrl(url) && !isAnalyzing && (
+          <p
+            style={{
+              marginTop: "4px",
+              fontSize: "11px",
+              color: "var(--color-error)",
+            }}
+          >
+            Enter a valid GitHub URL, e.g.{" "}
+            <code
+              style={{
+                fontFamily: "var(--font-mono-family)",
+                background: "var(--color-error-soft)",
+                padding: "2px 6px",
+                borderRadius: "4px",
+                border: "1px solid rgba(255, 59, 48, 0.15)",
+              }}
+            >
+              https://github.com/owner/repo
+            </code>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -77,9 +77,20 @@ export async function GET(req: Request) {
     );
 
     // ── 5. Return enriched data ────────────────────────
+    const githubMetadata = repoData && repoData.id ? {
+      stars: repoData.stargazers_count ?? 0,
+      forks: repoData.forks_count ?? 0,
+      language: repoData.language || null,
+      license: repoData.license?.name || repoData.license?.spdx_id || null,
+      lastCommitDate: repoData.pushed_at || repoData.updated_at || null,
+      visibility: repoData.visibility || (repoData.private ? "private" : "public"),
+      description: repoData.description || ""
+    } : null;
+
     return NextResponse.json({
       totalFiles: fileData.length,
       files: fileData,
+      githubMetadata,
     });
   } catch (err) {
     console.error("GitHub API error:", err);

@@ -1,0 +1,65 @@
+{
+  "totalFiles": 6,
+  "files": [
+    {
+      "fileName": "package.json",
+      "filePath": "package.json",
+      "content": "{\n  \"name\": \"tailwindcss-demo\",\n  \"version\": \"4.0.0\",\n  \"main\": \"lib/index.js\",\n  \"dependencies\": {\n    \"postcss\": \"^8.0.0\",\n    \"lightningcss\": \"^1.22.0\"\n  }\n}"
+    },
+    {
+      "fileName": "postcss.ts",
+      "filePath": "src/postcss.ts",
+      "content": "import postcss from 'postcss';\nimport { compile } from './compiler';\nexport default function tailwindPostcss() {\n  return {\n    postcssPlugin: 'tailwindcss',\n    Once(root: any) {\n      compile(root);\n    }\n  };\n}"
+    },
+    {
+      "fileName": "compiler.ts",
+      "filePath": "src/compiler.ts",
+      "content": "import { parse } from './parser';\nexport function compile(root: any) {\n  const config = parse(root);\n  console.log('Compiling stylesheet with config:', config);\n}"
+    },
+    {
+      "fileName": "parser.ts",
+      "filePath": "src/parser.ts",
+      "content": "export function parse(root: any) {\n  return {\n    theme: { colors: { primary: '#4361EE' } }\n  };\n}"
+    },
+    {
+      "fileName": "index.ts",
+      "filePath": "src/index.ts",
+      "content": "export { default as postcss } from './postcss';\nexport * from './compiler';\nexport * from './parser';"
+    },
+    {
+      "fileName": "tailwind.config.js",
+      "filePath": "tailwind.config.js",
+      "content": "module.exports = {\n  content: ['./src/**/*.{js,ts,jsx,tsx}'],\n  theme: { extend: {} }\n};"
+    }
+  ],
+  "githubMetadata": {
+    "stars": 82143,
+    "forks": 4518,
+    "language": "TypeScript",
+    "license": "MIT License",
+    "lastCommitDate": "2026-06-18T10:00:00Z",
+    "visibility": "public",
+    "description": "A utility-first CSS framework for rapid UI development."
+  },
+  "repoSummary": "Tailwind CSS is a utility-first CSS engine designed to generate custom styling declarations directly from HTML templates and JS code file classes by parsing stylesheet roots on compile passes.",
+  "messages": [
+    {
+      "id": "demo-msg-1",
+      "role": "assistant",
+      "content": "Welcome to **tailwindlabs/tailwindcss** 🗺️ workspace! This is a pre-analyzed demo repository. You can explore its files, look at the dependency graph, or select any files in the explorer.",
+      "timestamp": "2026-06-18T12:00:00.000Z"
+    },
+    {
+      "id": "demo-msg-2",
+      "role": "user",
+      "content": "Explain the entry points of the compiler",
+      "timestamp": "2026-06-18T12:00:05.000Z"
+    },
+    {
+      "id": "demo-msg-3",
+      "role": "assistant",
+      "content": "The compiler execution is initiated inside the PostCSS pipeline located in `src/postcss.ts`. This plugin calls `compile(root)` in `src/compiler.ts`, which parses custom configurations using the parser engines in `src/parser.ts` to transform utility class syntax into standardized static CSS rules.",
+      "timestamp": "2026-06-18T12:00:10.000Z"
+    }
+  ]
+}

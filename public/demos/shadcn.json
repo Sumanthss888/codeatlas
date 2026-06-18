@@ -1,0 +1,65 @@
+{
+  "totalFiles": 6,
+  "files": [
+    {
+      "fileName": "package.json",
+      "filePath": "package.json",
+      "content": "{\n  \"name\": \"shadcn-ui-demo\",\n  \"version\": \"1.0.0\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"clsx\": \"^2.0.0\",\n    \"tailwind-merge\": \"^2.0.0\",\n    \"lucide-react\": \"^0.300.0\"\n  }\n}"
+    },
+    {
+      "fileName": "utils.ts",
+      "filePath": "src/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from 'clsx';\nimport { transformMerge } from 'tailwind-merge';\nexport function cn(...inputs: ClassValue[]) {\n  return clsx(inputs);\n}"
+    },
+    {
+      "fileName": "button.tsx",
+      "filePath": "src/components/ui/button.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '../../lib/utils';\nexport const Button = React.forwardRef<HTMLButtonElement, any>((props, ref) => {\n  return <button ref={ref} className={cn('px-4 py-2 bg-blue-500 rounded text-white', props.className)} {...props} />;\n});"
+    },
+    {
+      "fileName": "dialog.tsx",
+      "filePath": "src/components/ui/dialog.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '../../lib/utils';\nexport function Dialog({ isOpen, children }: { isOpen: boolean, children: React.ReactNode }) {\n  if (!isOpen) return null;\n  return <div className={cn('fixed inset-0 z-50 bg-black/50 flex items-center justify-center')}>{children}</div>;\n}"
+    },
+    {
+      "fileName": "avatar.tsx",
+      "filePath": "src/components/ui/avatar.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '../../lib/utils';\nexport function Avatar({ src, alt }: { src: string; alt?: string }) {\n  return <img src={src} alt={alt} className={cn('h-10 w-10 rounded-full object-cover')} />;\n}"
+    },
+    {
+      "fileName": "index.ts",
+      "filePath": "src/index.ts",
+      "content": "export * from './components/ui/button';\nexport * from './components/ui/dialog';\nexport * from './components/ui/avatar';\nexport * from './lib/utils';"
+    }
+  ],
+  "githubMetadata": {
+    "stars": 78945,
+    "forks": 7652,
+    "language": "TypeScript",
+    "license": "MIT License",
+    "lastCommitDate": "2026-06-18T10:00:00Z",
+    "visibility": "public",
+    "description": "Beautifully designed components that you can copy and paste into your applications."
+  },
+  "repoSummary": "Shadcn UI is a collection of re-usable React components styled with Tailwind CSS, designed to be copy-pasted directly into applications rather than imported as a bloated dependency package.",
+  "messages": [
+    {
+      "id": "demo-msg-1",
+      "role": "assistant",
+      "content": "Welcome to **shadcn-ui/ui** 🗺️ workspace! This is a pre-analyzed demo repository. You can explore its files, look at the dependency graph, or select any files in the explorer.",
+      "timestamp": "2026-06-18T12:00:00.000Z"
+    },
+    {
+      "id": "demo-msg-2",
+      "role": "user",
+      "content": "How are helpers like class merges organized here?",
+      "timestamp": "2026-06-18T12:00:05.000Z"
+    },
+    {
+      "id": "demo-msg-3",
+      "role": "assistant",
+      "content": "Tailwind styles are merged and combined dynamically using the custom utility helper function `cn` defined in `src/lib/utils.ts`. This utility sits at the base of almost all component nodes (like `button.tsx`, `dialog.tsx`, and `avatar.tsx`), enabling custom layouts without Tailwind specificity conflicts.",
+      "timestamp": "2026-06-18T12:00:10.000Z"
+    }
+  ]
+}

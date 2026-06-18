@@ -1,0 +1,65 @@
+{
+  "totalFiles": 6,
+  "files": [
+    {
+      "fileName": "package.json",
+      "filePath": "package.json",
+      "content": "{\n  \"name\": \"nextjs-demo\",\n  \"version\": \"15.0.0\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"next\": \"15.0.0\"\n  }\n}"
+    },
+    {
+      "fileName": "next.config.ts",
+      "filePath": "next.config.ts",
+      "content": "import type { NextConfig } from 'next';\nconst nextConfig: NextConfig = {\n  reactStrictMode: true,\n  images: { domains: ['images.unsplash.com'] }\n};\nexport default nextConfig;"
+    },
+    {
+      "fileName": "layout.tsx",
+      "filePath": "src/app/layout.tsx",
+      "content": "import './globals.css';\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}"
+    },
+    {
+      "fileName": "page.tsx",
+      "filePath": "src/app/page.tsx",
+      "content": "import Sidebar from '../components/Sidebar';\nimport MainView from '../components/MainView';\nexport default function Home() {\n  return (\n    <main className=\"flex h-screen\">\n      <Sidebar />\n      <MainView />\n    </main>\n  );\n}"
+    },
+    {
+      "fileName": "Sidebar.tsx",
+      "filePath": "src/components/Sidebar.tsx",
+      "content": "import Link from 'next/link';\nexport default function Sidebar() {\n  return <aside className=\"w-64 border-r\">Navigation</aside>;\n}"
+    },
+    {
+      "fileName": "MainView.tsx",
+      "filePath": "src/components/MainView.tsx",
+      "content": "export default function MainView() {\n  return <div className=\"flex-1 p-6\">Workspace main view dashboard</div>;\n}"
+    }
+  ],
+  "githubMetadata": {
+    "stars": 121854,
+    "forks": 26421,
+    "language": "TypeScript",
+    "license": "MIT License",
+    "lastCommitDate": "2026-06-18T10:00:00Z",
+    "visibility": "public",
+    "description": "The React Framework for the Web"
+  },
+  "repoSummary": "Next.js is a flexible React framework that gives you building blocks to create fast web applications. It handles routing, rendering, data fetching, and integrations, allowing you to focus on building features.",
+  "messages": [
+    {
+      "id": "demo-msg-1",
+      "role": "assistant",
+      "content": "Welcome to **vercel/next.js** 🗺️ workspace! This is a pre-analyzed demo repository. You can explore its files, look at the dependency graph, or select any files in the explorer.",
+      "timestamp": "2026-06-18T12:00:00.000Z"
+    },
+    {
+      "id": "demo-msg-2",
+      "role": "user",
+      "content": "Explain the architecture of this codebase",
+      "timestamp": "2026-06-18T12:00:05.000Z"
+    },
+    {
+      "id": "demo-msg-3",
+      "role": "assistant",
+      "content": "This repository is structured as a modern **Next.js App Router** project. The entry point resides in `src/app/page.tsx` and `src/app/layout.tsx`. Layouts encapsulate styling and root page trees, while components like `src/components/Sidebar.tsx` and `src/components/MainView.tsx` are imported dynamically or directly into pages to form reusable UI modules.",
+      "timestamp": "2026-06-18T12:00:10.000Z"
+    }
+  ]
+}
