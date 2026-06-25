@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useUserPresence } from "./UserPresenceProvider";
 import UsernameForm from "./UsernameForm";
 import { Settings, LogOut, Shield } from "lucide-react";
@@ -14,6 +14,30 @@ type Props = {
 export default function ProfileDropdown({ isOpen, onClose, onSettingsClick }: Props) {
   const { user, logout } = useUserPresence();
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   // Focus trap Tab loop
   const handleDropdownKeyDown = (e: React.KeyboardEvent) => {
