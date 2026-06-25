@@ -1074,6 +1074,9 @@ input, button, select, textarea {
   max-width: 480px;
   margin-bottom: var(--space-4);
   line-height: 1.5;
+  opacity: 0;
+  animation: cssFade 0.7s ease-out forwards;
+  animation-delay: 750ms;
 }
 
 .onboarding-content-header {
