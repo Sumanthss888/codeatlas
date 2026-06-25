@@ -27,7 +27,7 @@ export default function Header({
     : null;
 
   return (
-    <header className="app-header glass-panel">
+    <header className="app-header glass-panel animate-header-entrance">
       <div className="header-brand">
         <Logo size={18} />
       </div>
