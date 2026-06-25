@@ -166,7 +166,7 @@ function classifyNode(filePath: string): { role: string; color: string; size: nu
     return { role: "Page / Layout", color: "#ffb703", size: 28 };
   }
   if (filePath.includes("components/")) {
-    return { role: "UI Component", color: "#4361EE", size: 24 };
+    return { role: "UI Component", color: "#6366F1", size: 24 };
   }
   if (filePath.includes("hooks/") || name.startsWith("use")) {
     return { role: "React Hook", color: "#7209B7", size: 22 };
