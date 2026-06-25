@@ -1092,6 +1092,20 @@ input, button, select, textarea {
   justify-content: center;
   border: 1px solid var(--border-default);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: scale(0.8) translateY(12px);
+  animation: logoEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, cssLogoBreathing 6s ease-in-out infinite 0.8s;
+  animation-delay: 100ms, 800ms;
+}
+
+@keyframes logoEntrance {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes cssLogoBreathing {
+  0% { transform: scale(1); filter: drop-shadow(0 0 0px var(--shadow-glow)); }
+  50% { transform: scale(1.04); filter: drop-shadow(0 0 12px var(--accent-color-soft)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--shadow-glow)); }
 }
 
 .onboarding-logo-icon-wrapper:hover {
