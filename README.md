@@ -159,6 +159,7 @@ npm run start
 *   **Reduced Motion:** Slide-over sheets detect OS settings. If active, all transitions instantly mount to prevent layout delays.
 *   **Perfect SEO Hierarchy:** Structured semantic HTML tags with unique interactive element IDs ensuring a Lighthouse score of `100/100`.
 *   **Premium Visual Refinements:** Custom dark-first charcoal variables, sandblasted frosted glass effects, and indigo accent tokens (`#6366F1`) matching modern developer ecosystems.
+*   **IDE Folder Indentation Guides:** Compact indentation guide lines (`border-left` on nested levels) preventing excessive horizontal shifting and matching elite IDE designs.
 
 ---
 <div align="center">
