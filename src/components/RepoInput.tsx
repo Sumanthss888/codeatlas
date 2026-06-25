@@ -96,16 +96,8 @@ export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
 
         {/* Example repo shortcuts — only shown when the field is empty */}
         {!url && !isAnalyzing && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              marginTop: "4px",
-              flexWrap: "wrap",
-            }}
-          >
-            <span style={{ fontSize: "11px", color: "var(--text-muted)", flexShrink: 0 }}>
+          <div className="repo-shortcuts-list">
+            <span className="repo-shortcuts-label">
               Try:
             </span>
             {EXAMPLE_REPOS.map((repo) => (
@@ -114,31 +106,7 @@ export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
                 whileHover={chipHover}
                 whileTap={chipTap}
                 onClick={() => setUrl(`https://github.com/${repo}`)}
-                style={{
-                  background: "var(--bg-glass)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                  border: "1px solid var(--border-default)",
-                  borderRadius: "var(--radius-sm)",
-                  padding: "4px 12px",
-                  fontSize: "11px",
-                  color: "var(--text-secondary)",
-                  cursor: "pointer",
-                  fontFamily: "var(--font-mono-family)",
-                  transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "var(--accent-color)";
-                  el.style.color = "var(--text-primary)";
-                  el.style.background = "var(--bg-glass-hover)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "var(--border-default)";
-                  el.style.color = "var(--text-secondary)";
-                  el.style.background = "var(--bg-glass)";
-                }}
+                className="repo-shortcut-btn"
               >
                 {repo}
               </motion.button>
@@ -148,23 +116,9 @@ export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
 
         {/* Inline validation hint */}
         {url && !isLikelyGitHubUrl(url) && !isAnalyzing && (
-          <p
-            style={{
-              marginTop: "4px",
-              fontSize: "11px",
-              color: "var(--color-error)",
-            }}
-          >
+          <p className="repo-validation-error">
             Enter a valid GitHub URL, e.g.{" "}
-            <code
-              style={{
-                fontFamily: "var(--font-mono-family)",
-                background: "var(--color-error-soft)",
-                padding: "2px 6px",
-                borderRadius: "4px",
-                border: "1px solid rgba(255, 59, 48, 0.15)",
-              }}
-            >
+            <code className="repo-validation-code">
               https://github.com/owner/repo
             </code>
           </p>
