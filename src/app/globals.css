@@ -3145,3 +3145,112 @@ a:focus-visible,
     width: 100%;
   }
 }
+/* ── Signature Input Console ── */
+.signature-input-wrapper {
+  width: 100%;
+  max-width: 640px; /* roomy design */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signature-input-console {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+  border: 1px solid var(--border-default);
+  padding: 0 var(--space-4);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.signature-input-console:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-glass-hover);
+}
+
+/* Focused Console State - Ascent Border & Halo */
+.signature-input-console.focused {
+  border-color: var(--accent-color);
+  background: var(--bg-surface);
+  box-shadow: 0 0 24px var(--accent-color-soft), var(--shadow-card);
+  transform: translateY(-0.5px);
+}
+
+.console-left-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 12px;
+  flex-shrink: 0;
+}
+
+.console-input-field {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono-family);
+  font-size: 13.5px;
+  color: var(--text-primary);
+  caret-color: var(--accent-color);
+  padding: 0;
+}
+
+.console-input-field::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.console-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-default);
+  margin: 0 16px;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+
+.console-right-action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive behaviour for divider & button */
+@media (max-width: 640px) {
+  .signature-input-console {
+    height: auto;
+    flex-direction: column;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    gap: var(--space-2);
+  }
+  .console-divider {
+    display: none;
+  }
+  .console-left-icon {
+    display: none;
+  }
+  .console-input-field {
+    width: 100%;
+    height: 40px;
+    padding: 0 var(--space-2);
+  }
+  .console-right-action {
+    width: 100%;
+  }
+  .analyze-btn.integrated {
+    width: 100%;
+    height: 42px;
+  }
+}
+
