@@ -36,6 +36,10 @@ graph TD
 
 ## 🌟 Core Flagship Features
 
+### Landing Experience & Motion Infrastructure
+*   **4-Layer Composite Backdrop:** Shifts HSL base positions imperceptibly, overlays blurred color orbs, floats low-contrast dot arrays, and overlays light film grain.
+*   **Choreographed Entrance Reveals:** Cascades navbar fade-ins, breathing logo pulses, text sweeps, staggered spans, and demo showcases.
+
 ### 1. Interactive Architecture Map
 *   **Force-Directed Spring Physics:** Dynamic repulsion and dampening calculations that automatically arrange files like molecules.
 *   **Hierarchical Grouping:** Layered visual layout aligning file nodes from left to right based on folder depth directories.
