@@ -100,13 +100,14 @@ export default function RepoInput({ onAnalyze, isAnalyzing }: Props) {
             <span className="repo-shortcuts-label">
               Try:
             </span>
-            {EXAMPLE_REPOS.map((repo) => (
+            {EXAMPLE_REPOS.map((repo, index) => (
               <motion.button
                 key={repo}
                 whileHover={chipHover}
                 whileTap={chipTap}
                 onClick={() => setUrl(`https://github.com/${repo}`)}
                 className="repo-shortcut-btn"
+                style={{"--delay": `${index * 100 + 1200}ms`} as React.CSSProperties}
               >
                 {repo}
               </motion.button>
