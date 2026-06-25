@@ -3483,3 +3483,31 @@ a:focus-visible,
   -webkit-backdrop-filter: blur(8px);
   z-index: 101;
 }
+
+.workspace-overlay-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 85vh;
+  max-height: 850px;
+  z-index: 102;
+  padding: var(--space-4);
+  display: flex;
+  pointer-events: none;
+}
+
+.workspace-overlay-panel {
+  pointer-events: auto;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-glass);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  outline: none;
+}
