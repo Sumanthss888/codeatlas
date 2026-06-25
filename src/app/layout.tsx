@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { UserPresenceProvider } from "@/components/user/UserPresenceProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,7 +40,9 @@ export default function RootLayout({
         />
       </head>
       <body className="app-root">
-        {children}
+        <UserPresenceProvider>
+          {children}
+        </UserPresenceProvider>
       </body>
     </html>
   );
