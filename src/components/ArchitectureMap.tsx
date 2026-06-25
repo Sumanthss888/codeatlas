@@ -28,6 +28,7 @@ type Props = {
   activeFile: string | null;
   onFileSelect: (filePath: string) => void;
   onSendMessage: (content: string) => void;
+  isOverlay?: boolean;
 };
 
 interface GraphNode {
@@ -339,6 +340,7 @@ export default function ArchitectureMap({
   activeFile,
   onFileSelect,
   onSendMessage,
+  isOverlay = false,
 }: Props) {
   const shouldReduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -644,12 +646,16 @@ export default function ArchitectureMap({
     return edge.source === focusId || edge.target === focusId;
   };
 
+  const isNodeDimmed = (nodeId: string) => {
+    if (!selectedNode && !hoveredNode) return false;
+    return !isHighlightedNode(nodeId);
+  };
+
   const getEdgeStroke = (edge: GraphEdge) => {
     const isHovered = hoveredNode === edge.source || hoveredNode === edge.target;
     const isSelected = selectedNode === edge.source || selectedNode === edge.target;
 
-    if (isHovered) return "var(--accent-color)";
-    if (isSelected) return "var(--accent-color)";
+    if (isHovered || isSelected) return "var(--accent-color)";
     return "var(--border-strong)";
   };
 
@@ -662,6 +668,486 @@ export default function ArchitectureMap({
     if (!selectedNode) return null;
     return nodes.find((n) => n.id === selectedNode) || null;
   }, [selectedNode, nodes]);
+
+  if (isOverlay) {
+    return (
+      <div className="architecture-overlay-wrapper" style={{ display: "flex", flexDirection: "column", height: "100%", position: "relative" }}>
+        
+        {/* Reusable Toolbar: Atlas Badge, Layout Switcher, and Search */}
+        <div className="architecture-overlay-toolbar">
+          <div className="toolbar-left">
+            <div className="overview-sparkle-pill" style={{ marginBottom: 0 }}>
+              <Link size={11} className="sparkle-icon" />
+              <span>Interactive Atlas</span>
+            </div>
+            
+            {/* Layout selector toggles */}
+            <div className="theme-switch-group" style={{ gap: "4px", padding: "3px" }}>
+              <button
+                onClick={() => setLayoutType("force")}
+                className={`theme-switch-btn ${layoutType === "force" ? "active" : ""}`}
+                style={{ padding: "4px 10px" }}
+                title="Spring force arrangement layout"
+                aria-label="Toggle spring force arrangement layout"
+              >
+                Force Directed
+              </button>
+              <button
+                onClick={() => setLayoutType("hierarchical")}
+                className={`theme-switch-btn ${layoutType === "hierarchical" ? "active" : ""}`}
+                style={{ padding: "4px 10px" }}
+                title="Horizontal folder-depth layers layout"
+                aria-label="Toggle horizontal folder-depth layers layout"
+              >
+                Hierarchical
+              </button>
+            </div>
+          </div>
+
+          <div className="toolbar-right">
+            {/* Search Input Box */}
+            <div className="sidebar-search-wrapper" style={{ width: "240px", background: "var(--bg-glass)", border: "1px solid var(--border-strong)" }}>
+              <span className="sidebar-search-icon">
+                <Search size={12} />
+              </span>
+              <input
+                type="text"
+                className="sidebar-search-input"
+                placeholder="Search file node..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              
+              {/* Autocomplete popup */}
+              <AnimatePresence>
+                {searchQuery && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    className="glass-panel search-autocomplete-popup"
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      right: 0,
+                      width: "240px",
+                      maxHeight: "180px",
+                      overflowY: "auto",
+                      borderRadius: "8px",
+                      padding: "4px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "2px",
+                      zIndex: 30,
+                    }}
+                  >
+                    {searchResults.length > 0 ? (
+                      searchResults.map((n) => (
+                        <button
+                          key={n.id}
+                          onClick={() => {
+                            selectAndCenterNode(n.id);
+                            setSearchQuery("");
+                          }}
+                          className="command-palette-item"
+                          style={{
+                            padding: "6px 8px",
+                            textAlign: "left",
+                            fontSize: "12px",
+                            background: "transparent",
+                            border: "none",
+                            color: "var(--text-secondary)",
+                            cursor: "pointer",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "var(--accent-color-soft)";
+                            e.currentTarget.style.color = "var(--accent-color)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.color = "var(--text-secondary)";
+                          }}
+                        >
+                          <div className="command-palette-item-text">{n.name}</div>
+                          <div className="command-palette-item-subtitle" style={{ fontSize: "10px", marginLeft: 0 }}>
+                            {n.id}
+                          </div>
+                        </button>
+                      ))
+                    ) : (
+                      <div style={{ padding: "8px", fontSize: "11px", color: "var(--text-muted)", textAlign: "center" }}>
+                        No matching nodes found
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+
+        {/* Hotspots insight chips */}
+        {!selectedNode && insights && (
+          <div className="hotspots-chips-container animate-fade-in">
+            <span className="chips-label">Hotspots:</span>
+            <button
+              onClick={() => selectAndCenterNode(insights.entryPoint.path)}
+              className="insight-chip"
+              title={insights.entryPoint.path}
+            >
+              ⚡ Entry Point: {insights.entryPoint.name}
+            </button>
+            <button
+              onClick={() => selectAndCenterNode(insights.utilityHub.path)}
+              className="insight-chip"
+              title={insights.utilityHub.path}
+            >
+              📦 Large Hub: {insights.utilityHub.name}
+            </button>
+            <button
+              onClick={() => selectAndCenterNode(insights.mostConnected.path)}
+              className="insight-chip"
+              title={insights.mostConnected.path}
+            >
+              🔗 Connected: {insights.mostConnected.name}
+            </button>
+          </div>
+        )}
+
+        {/* Main Content Area (Embedded inside the glass surface) */}
+        <div
+          ref={containerRef}
+          className="architecture-map-viewport"
+          style={{
+            position: "relative",
+            flex: 1,
+            width: "100%",
+            overflow: "hidden",
+            background: "transparent",
+            cursor: isDragging ? "grabbing" : "grab",
+            borderRadius: "12px",
+            border: "1px solid var(--border-default)",
+          }}
+        >
+          {/* SVG Canvas Map */}
+          <svg
+            width="100%"
+            height="100%"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onWheel={handleWheel}
+            style={{ position: "absolute", inset: 0 }}
+          >
+            <defs>
+              <pattern
+                id="atlas-grid"
+                width={40 * scale}
+                height={40 * scale}
+                patternUnits="userSpaceOnUse"
+                x={offset.x}
+                y={offset.y}
+              >
+                <circle cx="2" cy="2" r="1" fill="var(--border-strong)" opacity="0.35" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#atlas-grid)" pointerEvents="none" />
+
+            <g transform={`translate(${offset.x}, ${offset.y}) scale(${scale})`}>
+              {/* DRAW EDGES */}
+              <g className="edges-layer">
+                {visibleEdges.map((edge, idx) => {
+                  const sourcePos = positions[edge.source];
+                  const targetPos = positions[edge.target];
+
+                  if (!sourcePos || !targetPos) return null;
+
+                  const isPathSelected = selectedNode === edge.source || selectedNode === edge.target;
+                  
+                  return (
+                    <g key={`${edge.source}-${edge.target}-${idx}`}>
+                      <line
+                        x1={sourcePos.x}
+                        y1={sourcePos.y}
+                        x2={targetPos.x}
+                        y2={targetPos.y}
+                        stroke={getEdgeStroke(edge)}
+                        strokeWidth={isPathSelected ? 1.5 : 1}
+                        opacity={getEdgeOpacity(edge)}
+                        style={{ transition: "stroke 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease" }}
+                      />
+                    </g>
+                  );
+                })}
+              </g>
+
+              {/* DRAW NODES */}
+              <g className="nodes-layer">
+                {visibleNodes.map((node) => {
+                  const pos = positions[node.id];
+                  if (!pos) return null;
+
+                  const isSelected = selectedNode === node.id;
+                  const isHovered = hoveredNode === node.id;
+                  const isDimmed = isNodeDimmed(node.id);
+
+                  return (
+                    <g
+                      key={node.id}
+                      transform={`translate(${pos.x}, ${pos.y})`}
+                      onMouseEnter={() => setHoveredNode(node.id)}
+                      onMouseLeave={() => setHoveredNode(null)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedNode(node.id);
+                      }}
+                      style={{ cursor: "pointer", opacity: isDimmed ? 0.25 : 1, transition: "opacity 0.25s ease" }}
+                    >
+                      <circle
+                        r={node.size * (isSelected ? 1.15 : isHovered ? 1.08 : 1)}
+                        fill={node.color}
+                        stroke={isSelected ? "#FFFFFF" : isHovered ? "rgba(255,255,255,0.7)" : "transparent"}
+                        strokeWidth={isSelected ? 3 : 2}
+                        style={{ transition: "r 0.25s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.25s ease, stroke-width 0.25s ease" }}
+                      />
+
+                      <text
+                        y={node.size + 14}
+                        textAnchor="middle"
+                        fill="var(--text-primary)"
+                        style={{
+                          fontSize: isSelected ? "12px" : "11px",
+                          fontWeight: isSelected ? 600 : 400,
+                          pointerEvents: "none",
+                          fontFamily: "var(--font-family)",
+                        }}
+                      >
+                        {node.name}
+                      </text>
+                    </g>
+                  );
+                })}
+              </g>
+            </g>
+          </svg>
+
+          {/* Canvas Controls (Top Right) */}
+          <div
+            className="theme-switch-group"
+            style={{
+              position: "absolute",
+              top: "12px",
+              right: "12px",
+              zIndex: 15,
+              gap: "2px",
+              padding: "2px",
+            }}
+          >
+            <button
+              onClick={zoomIn}
+              className="theme-switch-btn"
+              style={{ padding: "6px" }}
+              title="Zoom In"
+              aria-label="Zoom in"
+            >
+              <ZoomIn size={14} />
+            </button>
+            <button
+              onClick={zoomOut}
+              className="theme-switch-btn"
+              style={{ padding: "6px" }}
+              title="Zoom Out"
+              aria-label="Zoom out"
+            >
+              <ZoomOut size={14} />
+            </button>
+            <button
+              onClick={fitToScreen}
+              className="theme-switch-btn"
+              style={{ padding: "6px" }}
+              title="Fit graph contents on screen"
+              aria-label="Fit graph contents on screen"
+            >
+              <Maximize2 size={14} />
+            </button>
+            <button
+              onClick={resetView}
+              className="theme-switch-btn"
+              style={{ padding: "6px" }}
+              title="Reset position and zoom"
+              aria-label="Reset position and zoom"
+            >
+              <RefreshCw size={13} />
+            </button>
+          </div>
+        </div>
+
+        {/* Detail Pane / Floating Node card (Right Side overlay) */}
+        <AnimatePresence>
+          {selectedNodeDetails && (
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+              className="overview-card glass-panel"
+              style={{
+                position: "absolute",
+                top: "12px",
+                right: "12px",
+                bottom: "12px",
+                width: "280px",
+                zIndex: 20,
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "14px",
+                minHeight: "auto",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.4)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+                <div style={{ minWidth: 0 }}>
+                  <span
+                    style={{
+                      backgroundColor: selectedNodeDetails.color + "22",
+                      color: selectedNodeDetails.color === "var(--text-secondary)" ? "var(--text-primary)" : selectedNodeDetails.color,
+                      fontSize: "9px",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      padding: "2px 8px",
+                      borderRadius: "99px",
+                      border: `1px solid ${selectedNodeDetails.color}35`,
+                    }}
+                  >
+                    {selectedNodeDetails.role}
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      marginTop: "6px",
+                      fontFamily: "var(--font-mono-family)",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                    title={selectedNodeDetails.name}
+                  >
+                    {selectedNodeDetails.name}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setSelectedNode(null)}
+                  className="overview-close-btn"
+                  style={{ width: "22px", height: "22px", flexShrink: 0 }}
+                  title="Deselect node"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+
+              <div style={{ fontSize: "11px", color: "var(--text-muted)", lineBreak: "anywhere" }}>
+                <span style={{ fontWeight: 600, display: "block" }}>Canonical Path:</span>
+                {selectedNodeDetails.id}
+              </div>
+
+              <div style={{ display: "flex", gap: "10px" }}>
+                <div className="metric-item glass-panel" style={{ flex: 1, padding: "8px", background: "var(--bg-secondary)" }}>
+                  <span className="metric-value" style={{ fontSize: "15px" }}>{selectedNodeImports.length}</span>
+                  <span className="metric-label" style={{ fontSize: "8px" }}>Imports</span>
+                </div>
+                <div className="metric-item glass-panel" style={{ flex: 1, padding: "8px", background: "var(--bg-secondary)" }}>
+                  <span className="metric-value" style={{ fontSize: "15px" }}>{selectedNodeDependents.length}</span>
+                  <span className="metric-label" style={{ fontSize: "8px" }}>Dependents</span>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "12px", color: "var(--text-secondary)", fontWeight: 500 }}>Isolate Connections</span>
+                <button
+                  onClick={() => setIsFocusMode(!isFocusMode)}
+                  className={`theme-switch-btn ${isFocusMode ? "active" : ""}`}
+                  style={{ padding: "4px 10px" }}
+                  aria-label="Toggle isolate connections focus mode"
+                >
+                  {isFocusMode ? "Focus Active" : "Focus Mode"}
+                </button>
+              </div>
+
+              <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px" }}>
+                {selectedNodeImports.length > 0 && (
+                  <div>
+                    <span className="section-subtitle" style={{ marginBottom: "4px" }}>Imports from ({selectedNodeImports.length})</span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                      {selectedNodeImports.map((imp) => (
+                        <button
+                          key={imp}
+                          onClick={() => selectAndCenterNode(imp)}
+                          className="quick-action-button text-left"
+                          style={{ padding: "4px 8px", fontSize: "10.5px" }}
+                        >
+                          {imp.split("/").pop()}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedNodeDependents.length > 0 && (
+                  <div>
+                    <span className="section-subtitle" style={{ marginBottom: "4px" }}>Dependents ({selectedNodeDependents.length})</span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                      {selectedNodeDependents.map((dep) => (
+                        <button
+                          key={dep}
+                          onClick={() => selectAndCenterNode(dep)}
+                          className="quick-action-button text-left"
+                          style={{ padding: "4px 8px", fontSize: "10.5px" }}
+                        >
+                          {dep.split("/").pop()}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "12px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                <button
+                  onClick={() => {
+                    onFileSelect(selectedNodeDetails.id);
+                  }}
+                  className="quick-action-button"
+                  style={{ padding: "6px 12px" }}
+                >
+                  <span className="action-button-left">
+                    <Folder size={11} />
+                    <span className="action-label" style={{ fontSize: "11px" }}>Locate in Explorer</span>
+                  </span>
+                  <ChevronRight size={11} />
+                </button>
+                <button
+                  onClick={() => {
+                    const prompt = `Explain this file and its role in the architecture: ${selectedNodeDetails.id}`;
+                    onSendMessage(prompt);
+                  }}
+                  className="quick-action-button"
+                  style={{ padding: "6px 12px" }}
+                >
+                  <span className="action-button-left">
+                    <HelpCircle size={11} />
+                    <span className="action-label" style={{ fontSize: "11px" }}>Explain File</span>
+                  </span>
+                  <ChevronRight size={11} />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
 
   return (
     <div className="repo-overview-container glass-panel animate-fade-in" style={{ padding: 0 }}>
@@ -759,7 +1245,7 @@ export default function ArchitectureMap({
                       stroke={getEdgeStroke(edge)}
                       strokeWidth={isPathSelected ? 1.5 : 1}
                       opacity={getEdgeOpacity(edge)}
-                      style={{ transition: "stroke 0.2s, opacity 0.2s" }}
+                      style={{ transition: "stroke 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease" }}
                     />
                     
                     {/* Import flow direction arrow marker on edge */}
@@ -789,7 +1275,7 @@ export default function ArchitectureMap({
 
                 const isSelected = selectedNode === node.id;
                 const isHovered = hoveredNode === node.id;
-                const isHighlighted = isHighlightedNode(node.id);
+                const isDimmed = isNodeDimmed(node.id);
                 
                 return (
                   <g
@@ -801,7 +1287,7 @@ export default function ArchitectureMap({
                     }}
                     onMouseEnter={() => setHoveredNode(node.id)}
                     onMouseLeave={() => setHoveredNode(null)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", opacity: isDimmed ? 0.25 : 1, transition: "opacity 0.25s ease" }}
                   >
                     {/* Node glow indicator for selection */}
                     {isSelected && (
@@ -818,14 +1304,13 @@ export default function ArchitectureMap({
 
                     {/* Outer ring */}
                     <circle
-                      r={node.size}
-                      fill="var(--bg-surface)"
-                      stroke={isSelected ? "var(--accent-color)" : isHovered ? "var(--text-primary)" : "var(--border-default)"}
-                      strokeWidth={isSelected ? 2 : 1}
-                      opacity={isHighlighted ? 1 : 0.12}
+                      r={node.size * (isSelected ? 1.15 : isHovered ? 1.08 : 1)}
+                      fill={node.color}
+                      stroke={isSelected ? "#FFFFFF" : isHovered ? "rgba(255,255,255,0.7)" : "transparent"}
+                      strokeWidth={isSelected ? 3 : 2}
                       className="glass-panel"
                       style={{
-                        transition: "stroke 0.2s, stroke-width 0.2s, opacity 0.2s",
+                        transition: "r 0.25s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.25s ease, stroke-width 0.25s ease",
                         boxShadow: "var(--shadow-card)",
                       }}
                     />
@@ -836,7 +1321,7 @@ export default function ArchitectureMap({
                       cx={0}
                       cy={-node.size + 1}
                       fill={node.color}
-                      opacity={isHighlighted ? 1 : 0.15}
+                      opacity={isDimmed ? 0.15 : 1}
                     />
 
                     {/* Node Icon */}
@@ -845,7 +1330,7 @@ export default function ArchitectureMap({
                         size={12}
                         style={{
                           color: isSelected ? "var(--accent-color)" : "var(--text-secondary)",
-                          opacity: isHighlighted ? 0.85 : 0.15,
+                          opacity: isDimmed ? 0.15 : 0.85,
                         }}
                       />
                     </g>
@@ -858,7 +1343,7 @@ export default function ArchitectureMap({
                         fill="var(--text-primary)"
                         fontSize="10.5px"
                         fontWeight={isSelected ? 600 : 500}
-                        opacity={isHighlighted ? 0.9 : 0.1}
+                        opacity={isDimmed ? 0.1 : 0.9}
                         style={{
                           fontFamily: "var(--font-mono-family)",
                           pointerEvents: "none",
