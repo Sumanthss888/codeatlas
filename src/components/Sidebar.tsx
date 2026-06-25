@@ -220,7 +220,7 @@ export default function Sidebar({
               className="folder-header"
               onClick={() => toggle(node.path)}
               style={{
-                paddingLeft: depth * 12 + 6,
+                paddingLeft: "6px",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
@@ -267,7 +267,7 @@ export default function Sidebar({
           key={node.path}
           className={`file-item ${isActive ? "active" : ""}`}
           onClick={() => onFileSelect(node.file.filePath)}
-          style={{ paddingLeft: depth * 12 + 16, position: "relative" }}
+          style={{ paddingLeft: "18px", position: "relative" }}
           data-filepath={node.file.filePath}
         >
           {isActive && (
@@ -330,7 +330,7 @@ export default function Sidebar({
 
       {/* Repository Summary Panel */}
       <div className="repo-summary-panel">
-        <div className="sidebar-section-label" style={{ padding: "0 4px" }}>
+        <div className="sidebar-section-label-alt">
           Workspace Summary
         </div>
         <div className="repo-summary-grid">
@@ -354,7 +354,7 @@ export default function Sidebar({
       </div>
 
       {/* Explorer search */}
-      <div className="sidebar-section" style={{ paddingBottom: "8px" }}>
+      <div className="sidebar-section search-section">
         <div className="sidebar-section-label">Explorer</div>
       </div>
 
@@ -373,18 +373,11 @@ export default function Sidebar({
       </div>
 
       {/* File Tree */}
-      <div className="file-list" style={{ marginTop: "4px" }}>
+      <div className="file-list">
         {tree.length > 0 ? (
           renderTree(tree)
         ) : (
-          <div
-            style={{
-              padding: "16px",
-              textAlign: "center",
-              color: "var(--text-muted)",
-              fontSize: "12px",
-            }}
-          >
+          <div className="file-list-empty">
             No files found
           </div>
         )}
@@ -392,18 +385,9 @@ export default function Sidebar({
 
       {/* Footer */}
       <div className="sidebar-footer">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: "11px",
-            color: "var(--text-muted)",
-            padding: "0 4px",
-          }}
-        >
+        <div className="sidebar-footer-stats">
           <span>Indexed files:</span>
-          <span style={{ fontWeight: 600, color: "var(--accent-color)" }}>
+          <span className="sidebar-footer-count">
             {filteredFiles.length} / {files.length}
           </span>
         </div>
