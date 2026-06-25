@@ -112,7 +112,7 @@ export default function ChatWindow({
 
   const chipHover = shouldReduceMotion
     ? {}
-    : { y: -2, boxShadow: "0 4px 12px rgba(67, 97, 238, 0.12)" };
+    : { y: -2, boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)" };
   const chipTap = shouldReduceMotion ? {} : { scale: 0.97 };
 
   // Generate contextual suggestions dynamically
