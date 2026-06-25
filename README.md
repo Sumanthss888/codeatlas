@@ -111,7 +111,7 @@ codeatlas/
 │       ├── ArchitectureMap.tsx # SVG pan/zoom node rendering graph
 │       ├── ChatWindow.tsx      # Conversation bubble streams and suggestion chips
 │       ├── Header.tsx          # Status indicators and preferences triggers
-│       ├── PreferencesPanel.tsx# Registry-driven settings drawer
+│       ├── PreferencePanel.tsx # Registry-driven settings drawer
 │       └── Sidebar.tsx         # Mobile slide-over drawer file explorer
 └── package.json
 ```
