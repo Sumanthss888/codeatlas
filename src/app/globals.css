@@ -94,6 +94,14 @@ html:not(.dark) {
 
   --shadow-card: 0 4px 20px rgba(15, 23, 42, 0.03), 0 1px 3px rgba(15, 23, 42, 0.02);
   --shadow-glow: 0 0 30px rgba(79, 70, 229, 0.02);
+  --dot-color: rgba(15, 23, 42, 0.025);
+  
+  /* Shifting background layer base & glows */
+  --bg-layer-1: #F8FAFC;
+  --bg-layer-1-glow-1: #EEF2F6;
+  --bg-layer-1-glow-2: #E2E8F0;
+  --bg-orb-opacity: 0.15;
+  --bg-orb-mix-blend: normal;
 }
 
 /* ── Global Elements ── */
