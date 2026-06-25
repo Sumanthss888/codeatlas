@@ -1148,6 +1148,10 @@ input, button, select, textarea {
 .onboarding-input-container {
   width: 100%;
   max-width: 540px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cssFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 900ms;
 }
 
 .onboarding-demo-container {
