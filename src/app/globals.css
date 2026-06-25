@@ -1117,9 +1117,29 @@ input, button, select, textarea {
 .onboarding-logo-text {
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-secondary) 25%, var(--text-primary) 50%, var(--text-secondary) 75%, var(--text-muted) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: productLabelEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, gradientSweep 8s linear infinite;
+  animation-delay: 200ms, 2s;
+}
+
+@keyframes productLabelEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.22em;
+  }
+}
+
+@keyframes gradientSweep {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 .onboarding-input-container {
