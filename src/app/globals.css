@@ -3596,3 +3596,49 @@ a:focus-visible,
   opacity: 0.4;
   pointer-events: none;
 }
+
+/* ── Overview Dashboard Grid System ── */
+.overview-dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.overview-hero-metrics-panel {
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+}
+
+.hero-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.hero-metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.hero-metric-val {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono-family);
+}
+
+.hero-metric-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin-top: var(--space-2);
+}
