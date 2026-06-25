@@ -7,9 +7,10 @@ import RepositoryInput from "@/components/RepositoryInput/RepositoryInput";
 import Header from "@/components/Header";
 import CommandPalette from "@/components/CommandPalette";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import RepositoryOverview from "@/components/RepositoryOverview";
-import ArchitectureMap from "@/components/ArchitectureMap";
 import PreferencesPanel from "@/components/PreferencesPanel";
+import useWorkspaceOverlay from "@/components/workspace-overlay/useWorkspaceOverlay";
+import OverviewOverlay from "@/components/workspace-overlay/overlays/OverviewOverlay";
+import ArchitectureOverlay from "@/components/workspace-overlay/overlays/ArchitectureOverlay";
 import { Sparkles } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────
@@ -73,7 +74,7 @@ export default function Home() {
   const handleClearCache = () => {
     try {
       sessionStorage.clear();
-      setActiveTab("chat");
+      handleSetActiveTab("chat");
     } catch {}
   };
 
@@ -101,7 +102,7 @@ export default function Home() {
       setActiveFile(null);
       setFetchState({ status: "idle" });
       setCurrentRepoUrl(null);
-      setActiveTab("chat");
+      handleSetActiveTab("chat");
       setRepoSummary(null);
       setIsSummaryLoading(false);
       setGithubMetadata(null);
@@ -182,27 +183,39 @@ export default function Home() {
   const [fetchState, setFetchState] = useState<FetchState>({ status: "idle" });
   const [currentRepoUrl, setCurrentRepoUrl] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"chat" | "overview" | "map">("chat");
+  const { activeOverlay, openOverlay, closeOverlay, toggleOverlay } = useWorkspaceOverlay();
+
+  const activeTab = activeOverlay === "overview" ? "overview" : activeOverlay === "architecture" ? "map" : "chat";
   const [repoSummary, setRepoSummary] = useState<string | null>(null);
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
   const [githubMetadata, setGithubMetadata] = useState<any | null>(null);
+
+  const handleSetActiveTab = (tab: "chat" | "overview" | "map") => {
+    if (tab === "overview") {
+      toggleOverlay("overview");
+    } else if (tab === "map") {
+      toggleOverlay("architecture");
+    } else {
+      closeOverlay();
+    }
+    try {
+      sessionStorage.setItem("codeatlas_active_tab", tab === activeTab ? "chat" : tab);
+    } catch {}
+  };
 
   // Load active tab from sessionStorage on mount
   useEffect(() => {
     try {
       const savedTab = sessionStorage.getItem("codeatlas_active_tab") as "chat" | "overview" | "map" | null;
       if (savedTab) {
-        setActiveTab(savedTab);
+        setTimeout(() => {
+          if (savedTab === "overview") openOverlay("overview");
+          else if (savedTab === "map") openOverlay("architecture");
+          else closeOverlay();
+        }, 50);
       }
     } catch {}
   }, []);
-
-  const handleSetActiveTab = (tab: "chat" | "overview" | "map") => {
-    setActiveTab(tab);
-    try {
-      sessionStorage.setItem("codeatlas_active_tab", tab);
-    } catch {}
-  };
 
   // ── Share & Demo states ──────────────────────────────
   const [shareStatus, setShareStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -539,7 +552,7 @@ You can now:
 
   // ── Render ───────────────────────────────────────────
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${activeOverlay ? "overlay-open" : ""}`}>
       <Header
         activeRepo={currentRepoUrl}
         isAnalyzing={fetchState.status === "loading"}
@@ -701,101 +714,55 @@ You can now:
                 )}
               </div>
 
-              {activeTab === "overview" ? (
-                <div className="workspace-split-view">
-                  <RepositoryOverview
-                    files={repoFiles}
-                    summary={repoSummary}
-                    isSummaryLoading={isSummaryLoading}
-                    githubMetadata={githubMetadata}
-                    onSendMessage={(content) => {
-                      handleSendMessage(content);
-                      if (window.innerWidth <= 1024) {
-                        handleSetActiveTab("chat");
-                      }
-                    }}
-                    onClose={() => {
-                      handleSetActiveTab("chat");
-                      try {
-                        sessionStorage.setItem("codeatlas_overview_closed", "true");
-                      } catch {}
-                    }}
-                  />
-                  <div className="workspace-split-chat">
-                    <ChatWindow
-                      messages={messages}
-                      isTyping={isTyping}
-                      onSendMessage={handleSendMessage}
-                      repoFiles={repoFiles}
-                      onFileSelect={(filePath) => {
-                        setActiveFile(filePath);
-                        setTimeout(() => {
-                          const el = document.querySelector(`[data-filepath="${filePath}"]`);
-                          if (el) {
-                            el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                          }
-                        }, 100);
-                      }}
-                    />
-                  </div>
-                </div>
-              ) : activeTab === "map" ? (
-                <div className="workspace-split-view">
-                  <ArchitectureMap
-                    files={repoFiles}
-                    activeFile={activeFile}
-                    onFileSelect={(filePath) => {
-                      setActiveFile(filePath);
-                      setTimeout(() => {
-                        const el = document.querySelector(`[data-filepath="${filePath}"]`);
-                        if (el) {
-                          el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                        }
-                      }, 100);
-                    }}
-                    onSendMessage={(content) => {
-                      handleSendMessage(content);
-                      if (window.innerWidth <= 1024) {
-                        handleSetActiveTab("chat");
-                      }
-                    }}
-                  />
-                  <div className="workspace-split-chat">
-                    <ChatWindow
-                      messages={messages}
-                      isTyping={isTyping}
-                      onSendMessage={handleSendMessage}
-                      repoFiles={repoFiles}
-                      onFileSelect={(filePath) => {
-                        setActiveFile(filePath);
-                        setTimeout(() => {
-                          const el = document.querySelector(`[data-filepath="${filePath}"]`);
-                          if (el) {
-                            el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                          }
-                        }, 100);
-                      }}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <ChatWindow
-                  messages={messages}
-                  isTyping={isTyping}
-                  onSendMessage={handleSendMessage}
-                  repoFiles={repoFiles}
-                  onFileSelect={(filePath) => {
-                    setActiveFile(filePath);
-                    setTimeout(() => {
-                      const el = document.querySelector(`[data-filepath="${filePath}"]`);
-                      if (el) {
-                        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                      }
-                    }, 100);
-                  }}
-                />
-              )}
+              <ChatWindow
+                messages={messages}
+                isTyping={isTyping}
+                onSendMessage={handleSendMessage}
+                repoFiles={repoFiles}
+                onFileSelect={(filePath) => {
+                  setActiveFile(filePath);
+                  setTimeout(() => {
+                    const el = document.querySelector(`[data-filepath="${filePath}"]`);
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    }
+                  }, 100);
+                }}
+              />
             </motion.main>
+
+            <OverviewOverlay
+              isOpen={activeOverlay === "overview"}
+              onClose={() => handleSetActiveTab("chat")}
+              files={repoFiles}
+              summary={repoSummary}
+              isSummaryLoading={isSummaryLoading}
+              githubMetadata={githubMetadata}
+              onSendMessage={(content) => {
+                handleSendMessage(content);
+                handleSetActiveTab("chat");
+              }}
+            />
+
+            <ArchitectureOverlay
+              isOpen={activeOverlay === "architecture"}
+              onClose={() => handleSetActiveTab("chat")}
+              files={repoFiles}
+              activeFile={activeFile}
+              onFileSelect={(filePath) => {
+                setActiveFile(filePath);
+                setTimeout(() => {
+                  const el = document.querySelector(`[data-filepath="${filePath}"]`);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                  }
+                }, 100);
+              }}
+              onSendMessage={(content) => {
+                handleSendMessage(content);
+                handleSetActiveTab("chat");
+              }}
+            />
           </>
         ) : (
           <div className="onboarding-hero">
