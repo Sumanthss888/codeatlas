@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { Settings, User } from "lucide-react";
+import { Settings } from "lucide-react";
+import Avatar from "./user/Avatar";
+import ProfileDropdown from "./user/ProfileDropdown";
 
 type Props = {
   activeRepo: string | null;
@@ -21,6 +23,8 @@ export default function Header({
   applyTheme = () => {},
   onSettingsClick,
 }: Props) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   // Extract simple repository name for the indicator
   const cleanRepoName = activeRepo
     ? activeRepo.split("/").filter(Boolean).slice(-2).join("/")
@@ -88,13 +92,14 @@ export default function Header({
           <Settings size={16} />
         </button>
 
-        <button
-          aria-label="Open profile options"
-          className="header-action-btn"
-          title="User Profile"
-        >
-          <User size={16} />
-        </button>
+        <div className="profile-container" style={{ position: "relative", display: "flex", alignItems: "center" }}>
+          <Avatar onClick={() => setIsDropdownOpen(!isDropdownOpen)} />
+          <ProfileDropdown
+            isOpen={isDropdownOpen}
+            onClose={() => setIsDropdownOpen(false)}
+            onSettingsClick={onSettingsClick}
+          />
+        </div>
       </div>
     </header>
   );
