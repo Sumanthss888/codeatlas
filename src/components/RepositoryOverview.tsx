@@ -167,7 +167,7 @@ export default function RepositoryOverview({
     };
 
     if (colors[name]) return colors[name];
-    const defaultColors = ["#4361EE", "#7209B7", "#f72585", "#4CC9F0", "#4895EF"];
+    const defaultColors = ["#6366F1", "#7209B7", "#f72585", "#4CC9F0", "#4895EF"];
     return defaultColors[index % defaultColors.length];
   };
 
