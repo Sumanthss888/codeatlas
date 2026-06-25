@@ -204,7 +204,7 @@ html:not(.dark) {
   100% { transform: translate(-30px, -40px) scale(1) rotate(-30deg); opacity: 0.5; }
 }
 
-/* Layer 1: Animated Gradient Base */
+/* Layer 1: Animated Gradient Base — Refined */
 .bg-layer-1-gradient {
   position: absolute;
   inset: -50%;
