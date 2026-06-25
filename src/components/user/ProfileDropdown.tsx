@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useUserPresence } from "./UserPresenceProvider";
 import UsernameForm from "./UsernameForm";
 import { Settings, LogOut, Shield } from "lucide-react";
@@ -13,11 +13,39 @@ type Props = {
 
 export default function ProfileDropdown({ isOpen, onClose, onSettingsClick }: Props) {
   const { user, logout } = useUserPresence();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Focus trap Tab loop
+  const handleDropdownKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Tab") {
+      const focusable = dropdownRef.current?.querySelectorAll(
+        'button, input, [tabindex="0"]'
+      );
+      if (!focusable || focusable.length === 0) return;
+
+      const first = focusable[0] as HTMLElement;
+      const last = focusable[focusable.length - 1] as HTMLElement;
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          last.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === last) {
+          first.focus();
+          e.preventDefault();
+        }
+      }
+    }
+  };
 
   if (!isOpen) return null;
 
   return (
     <div
+      ref={dropdownRef}
+      onKeyDown={handleDropdownKeyDown}
       className="profile-dropdown-panel glass-panel"
       role="dialog"
       aria-label="User Profile Dropdown"
