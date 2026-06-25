@@ -3966,3 +3966,67 @@ a:focus-visible,
   font-weight: 600;
   color: var(--text-primary);
 }
+
+/* ── Architecture Overlay Styling ── */
+.architecture-overlay-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  gap: var(--space-4);
+}
+
+.architecture-overlay-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.hotspots-chips-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-2);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.chips-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.insight-chip {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  outline: none;
+}
+
+.insight-chip:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
