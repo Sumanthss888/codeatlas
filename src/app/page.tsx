@@ -799,8 +799,27 @@ You can now:
           </>
         ) : (
           <div className="onboarding-hero">
-            <div className="animated-bg-mesh" />
-            <div className="animated-bg-grid" />
+            {/* Layer 1: Animated Gradient Base */}
+            <div className="bg-layer-1-gradient" />
+            
+            {/* Layer 2: Ambient Color Fields (4 blurred atmospheric orbs) */}
+            <div className="bg-layer-2-orbs">
+              <div className="orb orb-1" />
+              <div className="orb orb-2" />
+              <div className="orb orb-3" />
+              <div className="orb orb-4" />
+            </div>
+            
+            {/* Layer 3: Animated Dot Grid */}
+            <div className="bg-layer-3-dot-grid" />
+            
+            {/* Layer 4: Film Grain Overlay */}
+            <svg className="bg-layer-4-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+              <filter id="noiseFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+              </filter>
+              <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+            </svg>
 
             <div className="onboarding-content">
               <div className="onboarding-content-header">
