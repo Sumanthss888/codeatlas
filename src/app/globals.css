@@ -4030,3 +4030,58 @@ a:focus-visible,
   color: var(--text-primary);
   transform: translateY(-1px);
 }
+
+.architecture-map-viewport {
+  border-radius: var(--radius-md) !important;
+}
+
+.search-autocomplete-popup {
+  border: 1px solid var(--border-default) !important;
+  background: var(--bg-surface) !important;
+  box-shadow: var(--shadow-modal) !important;
+}
+
+.command-palette-item:hover {
+  background: var(--accent-color-soft) !important;
+  color: var(--accent-color) !important;
+}
+
+/* Responsive bottom sheet adjustments */
+@media (max-width: 640px) {
+  .workspace-overlay-container {
+    height: 100%;
+    max-height: 100vh;
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .workspace-overlay-panel {
+    height: 95vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .hero-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .overview-dashboard-grid.col-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-overlay-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .toolbar-left {
+    justify-content: space-between;
+  }
+
+  .toolbar-right .sidebar-search-wrapper {
+    width: 100% !important;
+  }
+}
