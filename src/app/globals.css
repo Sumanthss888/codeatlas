@@ -104,6 +104,30 @@ html:not(.dark) {
   --bg-orb-mix-blend: normal;
 }
 
+/* ── Motion System Utility Classes ── */
+.animate-fade {
+  animation: cssFade 0.5s ease-out both;
+}
+.animate-fade-up {
+  animation: cssFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-scale-in {
+  animation: cssScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cssFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cssFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cssScaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 /* ── Global Elements ── */
 *, *::before, *::after {
   box-sizing: border-box;
