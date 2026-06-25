@@ -3254,3 +3254,132 @@ a:focus-visible,
   }
 }
 
+/* ── User Presence Styles ── */
+.presence-trigger-btn.logged-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #a855f7 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+  overflow: hidden;
+  padding: 0;
+}
+
+.presence-trigger-btn.logged-in:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.presence-trigger-btn.logged-in:active {
+  transform: scale(0.97);
+}
+
+.avatar-initials {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: var(--font-family);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Profile Dropdown Panel */
+.profile-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 280px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  z-index: 50;
+  animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Username entry form */
+.username-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-align: left;
+}
+
+.username-form .form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.username-form .form-description {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.username-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.username-input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 12px;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.username-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color-soft);
+}
+
+.form-error-msg {
+  font-size: 10.5px;
+  color: var(--color-error);
+  margin-top: 2px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  background: var(--accent-color);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  padding: var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-submit-btn:hover {
+  background: var(--accent-color-hover);
+}
+
+.form-submit-btn:active {
+  transform: scale(0.98);
+}
+
