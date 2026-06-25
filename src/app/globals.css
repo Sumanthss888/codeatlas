@@ -3465,3 +3465,21 @@ a:focus-visible,
 .menu-icon {
   opacity: 0.8;
 }
+/* ── Workspace Overlay System ── */
+.workspace-overlay-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workspace-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 101;
+}
