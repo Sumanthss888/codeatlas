@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 type User = {
   name: string;
@@ -17,9 +17,41 @@ const UserPresenceContext = createContext<UserPresenceContextType | undefined>(u
 
 export function UserPresenceProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const login = (name: string) => {};
-  const logout = () => {};
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("codeatlas_user");
+      if (stored) {
+        setUser({ name: stored });
+      }
+    } catch (e) {
+      console.error("Failed to read user presence from localStorage", e);
+    }
+    setIsInitialized(true);
+  }, []);
+
+  const login = (name: string) => {
+    const trimmed = name.trim();
+    if (trimmed.length >= 2 && trimmed.length <= 24) {
+      setUser({ name: trimmed });
+      try {
+        localStorage.setItem("codeatlas_user", trimmed);
+      } catch (e) {
+        console.error("Failed to save user presence to localStorage", e);
+      }
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    try {
+      localStorage.removeItem("codeatlas_user");
+    } catch (e) {
+      console.error("Failed to remove user presence from localStorage", e);
+    }
+  };
+
   const getInitials = () => "";
 
   return (
