@@ -50,6 +50,14 @@
 
   --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2);
   --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.04);
+  --dot-color: rgba(255, 255, 255, 0.04);
+  
+  /* Shifting background layer base & glows */
+  --bg-layer-1: #0A0A0F;
+  --bg-layer-1-glow-1: #0D0B1A;
+  --bg-layer-1-glow-2: #060D1A;
+  --bg-orb-opacity: 0.7;
+  --bg-orb-mix-blend: screen;
   
   /* Status Colors */
   --color-success: #10B981;
