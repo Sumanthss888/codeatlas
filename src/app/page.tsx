@@ -868,7 +868,10 @@ You can now:
                 />
 
                 {/* Instant sandbox demo entry points */}
-                <div className="demo-section animate-fade-in onboarding-demo-container">
+                <div 
+                  className="demo-section onboarding-demo-container"
+                  style={{ opacity: 0, animation: "cssFade 0.6s ease-out forwards", animationDelay: "1250ms" }}
+                >
                   <span className="onboarding-demo-label">
                     ⚡ Instant Sandbox Showcases
                   </span>
@@ -877,6 +880,7 @@ You can now:
                       onClick={() => handleLoadDemo("nextjs")}
                       className="demo-card-btn glass-panel"
                       title="Load vercel/next.js interactive demo"
+                      style={{ opacity: 0, animation: "cssFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards", animationDelay: "1350ms" }}
                     >
                       vercel/next.js
                     </button>
@@ -884,6 +888,7 @@ You can now:
                       onClick={() => handleLoadDemo("shadcn")}
                       className="demo-card-btn glass-panel"
                       title="Load shadcn-ui/ui interactive demo"
+                      style={{ opacity: 0, animation: "cssFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards", animationDelay: "1450ms" }}
                     >
                       shadcn-ui/ui
                     </button>
@@ -891,6 +896,7 @@ You can now:
                       onClick={() => handleLoadDemo("tailwind")}
                       className="demo-card-btn glass-panel"
                       title="Load tailwindlabs/tailwindcss interactive demo"
+                      style={{ opacity: 0, animation: "cssFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards", animationDelay: "1550ms" }}
                     >
                       tailwind/tailwindcss
                     </button>
