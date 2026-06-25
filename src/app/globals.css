@@ -104,6 +104,24 @@ html:not(.dark) {
   --bg-orb-mix-blend: normal;
 }
 
+/* Layer 3: Animated Dot Grid */
+.bg-layer-3-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 32px 32px;
+  z-index: 2;
+  pointer-events: none;
+  animation: gridDrift 60s linear infinite;
+  opacity: 0.5;
+  mask-image: radial-gradient(circle, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle, black 40%, transparent 85%);
+}
+@keyframes gridDrift {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 320px 320px; }
+}
+
 /* Layer 2: Ambient Color Fields (4 blurred atmospheric orbs) */
 .bg-layer-2-orbs {
   position: absolute;
