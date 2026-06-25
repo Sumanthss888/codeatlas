@@ -803,25 +803,8 @@ You can now:
             <div className="animated-bg-grid" />
 
             <div className="onboarding-content">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "12px",
-                }}
-              >
-                <span
-                  style={{
-                    background: "var(--accent-color-soft)",
-                    padding: "14px",
-                    borderRadius: "18px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "1px solid var(--border-default)",
-                  }}
-                >
+              <div className="onboarding-content-header">
+                <span className="onboarding-logo-icon-wrapper">
                   <svg
                     width="36"
                     height="36"
@@ -839,15 +822,7 @@ You can now:
                     <line x1="12" y1="8" x2="17" y2="15" stroke="currentColor" strokeWidth="1.5" />
                   </svg>
                 </span>
-                <span
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "var(--text-muted)",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                  }}
-                >
+                <span className="onboarding-logo-text">
                   CodeAtlas
                 </span>
               </div>
@@ -857,43 +832,18 @@ You can now:
                 AI-powered repository intelligence for developers. Trace architecture, ask questions, and explore file structures.
               </p>
 
-              <div style={{ width: "100%", maxWidth: "540px" }}>
+              <div className="onboarding-input-container">
                 <RepoInput
                   onAnalyze={handleAnalyze}
                   isAnalyzing={fetchState.status === "loading"}
                 />
 
                 {/* Instant sandbox demo entry points */}
-                <div
-                  className="demo-section animate-fade-in"
-                  style={{
-                    marginTop: "24px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      color: "var(--text-muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
+                <div className="demo-section animate-fade-in onboarding-demo-container">
+                  <span className="onboarding-demo-label">
                     ⚡ Instant Sandbox Showcases
                   </span>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                      justifyContent: "center",
-                      flexWrap: "wrap",
-                      width: "100%"
-                    }}
-                  >
+                  <div className="onboarding-demo-list">
                     <button
                       onClick={() => handleLoadDemo("nextjs")}
                       className="demo-card-btn glass-panel"
