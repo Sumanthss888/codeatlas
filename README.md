@@ -160,6 +160,7 @@ npm run start
 *   **Perfect SEO Hierarchy:** Structured semantic HTML tags with unique interactive element IDs ensuring a Lighthouse score of `100/100`.
 *   **Premium Visual Refinements:** Custom dark-first charcoal variables, sandblasted frosted glass effects, and indigo accent tokens (`#6366F1`) matching modern developer ecosystems.
 *   **IDE Folder Indentation Guides:** Compact indentation guide lines (`border-left` on nested levels) preventing excessive horizontal shifting and matching elite IDE designs.
+*   **Linear-Style Metrics Dashboard:** High-contrast grid layouts, modern dashboard cards, and micro-hover translation effects on repo briefing panels.
 
 ---
 <div align="center">
