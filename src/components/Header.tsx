@@ -82,26 +82,7 @@ export default function Header({
           id="header-settings-btn"
           onClick={onSettingsClick}
           aria-label="Open workspace preferences panel"
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "var(--text-secondary)",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "6px",
-            borderRadius: "6px",
-            transition: "all 0.15s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--bg-glass-hover)";
-            e.currentTarget.style.color = "var(--text-primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
+          className="header-action-btn"
           title="Settings"
         >
           <Settings size={16} />
@@ -109,26 +90,7 @@ export default function Header({
 
         <button
           aria-label="Open profile options"
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "var(--text-secondary)",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "6px",
-            borderRadius: "6px",
-            transition: "all 0.15s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--bg-glass-hover)";
-            e.currentTarget.style.color = "var(--text-primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--text-secondary)";
-          }}
+          className="header-action-btn"
           title="User Profile"
         >
           <User size={16} />
