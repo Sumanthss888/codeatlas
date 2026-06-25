@@ -37,6 +37,7 @@ graph TD
 ## 🌟 Core Flagship Features
 
 ### Landing Experience & Motion Infrastructure
+*   **Film Grain Overlay:** Utilizes inline SVG fractalNoise nodes inside SVG filter overlays to resolve digital canvas flatness.
 *   **4-Layer Composite Backdrop:** Shifts HSL base positions imperceptibly, overlays blurred color orbs, floats low-contrast dot arrays, and overlays light film grain.
 *   **Choreographed Entrance Reveals:** Cascades navbar fade-ins, breathing logo pulses, text sweeps, staggered spans, and demo showcases.
 
