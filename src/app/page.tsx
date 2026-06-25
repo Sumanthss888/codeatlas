@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import ChatWindow from "@/components/ChatWindow";
-import RepoInput from "@/components/RepoInput";
+import RepositoryInput from "@/components/RepositoryInput/RepositoryInput";
 import Header from "@/components/Header";
 import CommandPalette from "@/components/CommandPalette";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
@@ -862,7 +862,7 @@ You can now:
               </p>
 
               <div className="onboarding-input-container">
-                <RepoInput
+                <RepositoryInput
                   onAnalyze={handleAnalyze}
                   isAnalyzing={fetchState.status === "loading"}
                 />
