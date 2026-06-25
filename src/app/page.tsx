@@ -846,7 +846,17 @@ You can now:
                 </span>
               </div>
 
-              <h1 className="onboarding-title">Understand any codebase in minutes.</h1>
+              <h1 className="onboarding-title">
+                {"Understand any codebase in minutes.".split(" ").map((word, index) => (
+                  <span
+                    key={index}
+                    className="headline-word"
+                    style={{ "--delay": `${index * 80 + 350}ms` } as React.CSSProperties}
+                  >
+                    {word}&nbsp;
+                  </span>
+                ))}
+              </h1>
               <p className="onboarding-tagline">
                 AI-powered repository intelligence for developers. Trace architecture, ask questions, and explore file structures.
               </p>
