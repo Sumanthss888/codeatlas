@@ -104,6 +104,76 @@ html:not(.dark) {
   --bg-orb-mix-blend: normal;
 }
 
+/* Layer 2: Ambient Color Fields (4 blurred atmospheric orbs) */
+.bg-layer-2-orbs {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  filter: blur(140px);
+  opacity: var(--bg-orb-opacity);
+  transition: opacity 0.5s ease;
+}
+.bg-layer-2-orbs .orb {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: var(--bg-orb-mix-blend);
+}
+.bg-layer-2-orbs .orb-1 {
+  width: 450px;
+  height: 380px;
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.12) 0%, transparent 80%);
+  top: 5%;
+  left: 10%;
+  animation: orbDrift1 25s infinite ease-in-out alternate;
+}
+.bg-layer-2-orbs .orb-2 {
+  width: 550px;
+  height: 420px;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 80%);
+  bottom: 10%;
+  right: 5%;
+  animation: orbDrift2 35s infinite ease-in-out alternate;
+}
+.bg-layer-2-orbs .orb-3 {
+  width: 380px;
+  height: 480px;
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.08) 0%, transparent 80%);
+  top: 35%;
+  right: 15%;
+  animation: orbDrift3 28s infinite ease-in-out alternate;
+}
+.bg-layer-2-orbs .orb-4 {
+  width: 480px;
+  height: 400px;
+  background: radial-gradient(ellipse at center, rgba(20, 184, 166, 0.05) 0%, transparent 80%);
+  bottom: 15%;
+  left: 15%;
+  animation: orbDrift4 32s infinite ease-in-out alternate;
+}
+
+@keyframes orbDrift1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.7; }
+  50% { transform: translate(50px, -30px) scale(1.1) rotate(40deg); opacity: 0.9; }
+  100% { transform: translate(-20px, 20px) scale(0.95) rotate(-20deg); opacity: 0.7; }
+}
+@keyframes orbDrift2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: translate(-60px, 40px) scale(0.95) rotate(-45deg); opacity: 0.6; }
+  100% { transform: translate(30px, -20px) scale(1.05) rotate(25deg); opacity: 0.8; }
+}
+@keyframes orbDrift3 {
+  0% { transform: translate(0, 0) scale(1.02); opacity: 0.6; }
+  50% { transform: translate(-20px, -45px) scale(0.9); opacity: 0.75; }
+  100% { transform: translate(35px, 30px) scale(1.08); opacity: 0.6; }
+}
+@keyframes orbDrift4 {
+  0% { transform: translate(0, 0) scale(0.95) rotate(0deg); opacity: 0.5; }
+  50% { transform: translate(40px, 25px) scale(1.05) rotate(60deg); opacity: 0.75; }
+  100% { transform: translate(-30px, -40px) scale(1) rotate(-30deg); opacity: 0.5; }
+}
+
 /* Layer 1: Animated Gradient Base */
 .bg-layer-1-gradient {
   position: absolute;
