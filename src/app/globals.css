@@ -1031,8 +1031,8 @@ input, button, select, textarea {
 }
 
 .chat-input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px var(--accent-color-soft);
+  border-color: var(--border-strong);
+  box-shadow: none;
 }
 
 .send-btn {
@@ -1480,9 +1480,9 @@ input, button, select, textarea {
 }
 
 .sidebar-search-input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--border-strong);
   background: var(--bg-surface);
-  box-shadow: 0 0 0 2px var(--accent-color-soft);
+  box-shadow: none;
 }
 
 .sidebar-search-icon {
@@ -1723,7 +1723,7 @@ input, button, select, textarea {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--border-strong);
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   padding: 12px 16px 8px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1731,8 +1731,8 @@ input, button, select, textarea {
 }
 
 .chat-input-area.floating:focus-within {
-  border-color: var(--accent-color);
-  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15), 0 0 0 3px var(--accent-color-soft);
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), var(--shadow-card);
 }
 
 .chat-input-wrapper-floating {
@@ -1894,9 +1894,9 @@ textarea:focus-visible,
 a:focus-visible,
 [role="button"]:focus-visible,
 [role="radio"]:focus-visible {
-  outline: 2px solid var(--accent-color) !important;
+  outline: 2px solid var(--border-strong) !important;
   outline-offset: 2px !important;
-  box-shadow: 0 0 0 4px var(--accent-color-soft) !important;
+  box-shadow: none !important;
 }
 
 
@@ -3148,7 +3148,7 @@ a:focus-visible,
 /* ── Signature Input Console ── */
 .signature-input-wrapper {
   width: 100%;
-  max-width: 640px; /* roomy design */
+  max-width: 600px; /* elegant, tight layout */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -3158,17 +3158,18 @@ a:focus-visible,
 .signature-input-console {
   display: flex;
   align-items: center;
-  height: 64px;
-  border-radius: 18px;
+  height: 54px; /* compact, premium height */
+  border-radius: 12px;
   background: var(--bg-glass);
   backdrop-filter: var(--surface-blur);
   -webkit-backdrop-filter: var(--surface-blur);
   border: 1px solid var(--border-default);
   padding: 0 var(--space-4);
   box-shadow: var(--shadow-card);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   position: relative;
   z-index: 10;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .signature-input-console:hover {
@@ -3176,12 +3177,11 @@ a:focus-visible,
   background: var(--bg-glass-hover);
 }
 
-/* Focused Console State - Ascent Border & Halo */
+/* Focused Console State - Subtle Gray Border, NO blue halo */
 .signature-input-console.focused {
-  border-color: var(--accent-color);
-  background: var(--bg-surface);
-  box-shadow: 0 0 24px var(--accent-color-soft), var(--shadow-card);
-  transform: translateY(-0.5px);
+  border-color: var(--border-strong);
+  background: var(--bg-glass-hover);
+  box-shadow: var(--shadow-card);
 }
 
 .console-left-icon {
@@ -3352,8 +3352,8 @@ a:focus-visible,
 }
 
 .username-input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 8px var(--accent-color-soft);
+  border-color: var(--border-strong);
+  box-shadow: none;
 }
 
 .form-error-msg {
@@ -3454,7 +3454,7 @@ a:focus-visible,
 
 .dropdown-menu-item:focus {
   background: var(--bg-glass-hover);
-  box-shadow: 0 0 0 2px var(--accent-color-soft);
+  box-shadow: none;
 }
 
 .dropdown-menu-item.signout:hover {
