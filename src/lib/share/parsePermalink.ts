@@ -5,9 +5,24 @@ export interface ParsedLink {
 }
 
 export function parsePermalink(url: string): ParsedLink {
-  return {
+  const result: ParsedLink = {
     repoUrl: null,
     tab: null,
     node: null,
   };
+  if (!url) return result;
+  try {
+    const urlObj = new URL(url, typeof window !== "undefined" ? window.location.origin : undefined);
+    const repo = urlObj.searchParams.get("repo");
+    if (repo) {
+      let normalized = repo.trim();
+      if (!normalized.startsWith("http://") && !normalized.startsWith("https://")) {
+        normalized = `https://github.com/${normalized}`;
+      }
+      result.repoUrl = normalized;
+    }
+  } catch (err) {
+    console.error("Failed to parse URL query parameters", err);
+  }
+  return result;
 }
