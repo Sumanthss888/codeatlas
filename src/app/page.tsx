@@ -194,6 +194,11 @@ export default function Home() {
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
   const [githubMetadata, setGithubMetadata] = useState<any | null>(null);
 
+  // Deep-linking restoration states
+  const [initialRepoInput, setInitialRepoInput] = useState("");
+  const [targetTabAfterLoad, setTargetTabAfterLoad] = useState<"chat" | "overview" | "map" | null>(null);
+  const { showToast } = useToast();
+
   const handleSetActiveTab = (tab: "chat" | "overview" | "map") => {
     if (tab === "overview") {
       toggleOverlay("overview");
