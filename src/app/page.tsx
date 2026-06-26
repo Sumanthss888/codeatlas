@@ -240,6 +240,51 @@ export default function Home() {
     } catch {}
   }, []);
 
+  // Deep-linking restoration on initial client mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const parsed = parsePermalink(window.location.href);
+      if (parsed.repoUrl) {
+        setInitialRepoInput(parsed.repoUrl);
+        if (parsed.tab) {
+          setTargetTabAfterLoad(parsed.tab);
+        }
+        // Run with small timeout to allow app states to fully mount
+        setTimeout(() => {
+          handleAnalyze(parsed.repoUrl!);
+        }, 100);
+      }
+    }
+  }, []);
+
+  // Sync back/forward popstate browser navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window !== "undefined") {
+        const parsed = parsePermalink(window.location.href);
+        if (parsed.repoUrl) {
+          if (parsed.repoUrl !== currentRepoUrl) {
+            handleAnalyze(parsed.repoUrl);
+          }
+          if (parsed.tab) {
+            handleSetActiveTab(parsed.tab);
+          } else {
+            handleSetActiveTab("chat");
+          }
+        } else {
+          if (currentRepoUrl) {
+            handleChangeRepo();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [currentRepoUrl]);
+
   // ── Share & Demo states ──────────────────────────────
   const [shareStatus, setShareStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [isDemoMode, setIsDemoMode] = useState(false);
@@ -288,6 +333,13 @@ export default function Home() {
       setMessages(data.messages);
       setIsDemoMode(true);
       setFetchState({ status: "success", totalFiles: data.totalFiles });
+      
+      // Update history URL for demo load
+      if (typeof window !== "undefined") {
+        const permalink = buildPermalink(repoUrls[repoName]);
+        window.history.pushState(null, "", permalink);
+      }
+
       handleSetActiveTab("overview");
     } catch (err) {
       console.error("Failed to load demo:", err);
@@ -333,9 +385,22 @@ export default function Home() {
       setFetchState({ status: "success", totalFiles: data.totalFiles });
       addRecentRepo(url.trim());
 
+      // Sync browser history permalink on successful fetch
+      if (typeof window !== "undefined") {
+        const permalink = buildPermalink(url.trim());
+        const currentUrlObj = new URL(window.location.href);
+        const newUrlObj = new URL(permalink, window.location.origin);
+        if (currentUrlObj.searchParams.get("repo") !== newUrlObj.searchParams.get("repo")) {
+          window.history.pushState(null, "", permalink);
+        }
+      }
+
       // Default activeTab to overview when loaded, unless they previously closed it
       const wasClosed = sessionStorage.getItem("codeatlas_overview_closed") === "true";
-      if (!wasClosed) {
+      if (targetTabAfterLoad) {
+        handleSetActiveTab(targetTabAfterLoad);
+        setTargetTabAfterLoad(null); // Clear target tab after restoring
+      } else if (!wasClosed) {
         handleSetActiveTab("overview");
       } else {
         handleSetActiveTab("chat");
@@ -530,6 +595,9 @@ You can now:
     setIsSummaryLoading(false);
     setIsDemoMode(false);
     handleSetActiveTab("chat");
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", "/");
+    }
     try {
       sessionStorage.removeItem("codeatlas_overview_closed");
     } catch {}
