@@ -37,18 +37,18 @@ export default function Header({
       </div>
 
       {cleanRepoName && (
-        <div className="repo-badge">
-          <span className={`repo-badge-dot ${isAnalyzing ? "indexing" : ""}`} />
-          <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>
+        <div className="workspace-identity-pill glass-panel">
+          <span className={`workspace-status-dot ${isAnalyzing ? "indexing" : "indexed"}`} />
+          <span className="workspace-repo-name">
             {cleanRepoName}
           </span>
-          <span style={{ color: "var(--text-muted)", fontSize: "10.5px" }}>
+          <span className="workspace-status-text">
             {isAnalyzing ? "indexing" : "indexed"}
           </span>
           {onChangeRepo && (
             <button
               onClick={onChangeRepo}
-              className="change-repo-btn"
+              className="workspace-change-btn"
               title="Switch to another repository"
             >
               Change
