@@ -4603,3 +4603,13 @@ input, textarea, button, select, a, [role="button"] {
   gap: var(--space-2);
   margin-top: 8px;
 }
+
+/* Typewriter Cursor Blinking Utility */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursorBlink 0.8s step-end infinite;
+}

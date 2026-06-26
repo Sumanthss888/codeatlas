@@ -17,6 +17,7 @@ import { parsePermalink } from "@/lib/share/parsePermalink";
 import { useToast } from "@/components/ui/Toast";
 import { Sparkles } from "lucide-react";
 import SegmentedControl from "@/components/ui/SegmentedControl";
+import TypewriterHeadline from "@/components/hero/TypewriterHeadline";
 
 // ─── Types ─────────────────────────────────────────────
 
@@ -904,15 +905,7 @@ You can now:
               </div>
 
               <h1 className="onboarding-title">
-                {"Understand any codebase in minutes.".split(" ").map((word, index) => (
-                  <span
-                    key={index}
-                    className="headline-word"
-                    style={{ "--delay": `${index * 80 + 350}ms` } as React.CSSProperties}
-                  >
-                    {word}&nbsp;
-                  </span>
-                ))}
+                <TypewriterHeadline />
               </h1>
               <p className="onboarding-tagline">
                 AI-powered repository intelligence for developers. Trace architecture, ask questions, and explore file structures.
