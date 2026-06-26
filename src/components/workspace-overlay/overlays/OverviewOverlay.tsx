@@ -21,6 +21,7 @@ import {
 import WorkspaceOverlay from "../WorkspaceOverlay";
 import WorkspaceOverlayHeader from "../WorkspaceOverlayHeader";
 import WorkspaceOverlayBody from "../WorkspaceOverlayBody";
+import MarkdownRenderer from "../../markdown/MarkdownRenderer";
 
 type Props = {
   isOpen: boolean;
@@ -355,7 +356,7 @@ export default function OverviewOverlay({
                     <div className="shimmer-line w-3/4" />
                   </div>
                 ) : summary ? (
-                  <p className="summary-text-styled">{summary}</p>
+                  <MarkdownRenderer content={summary} />
                 ) : (
                   <p className="summary-text-styled text-muted">
                     No summary brief available. Use the chat pane beneath to query files.
