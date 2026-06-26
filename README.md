@@ -1,174 +1,387 @@
 <div align="center">
 
-# 🗺️ CodeAtlas
+<img src="public/logo.png" alt="CodeAtlas Logo" width="80" height="80" />
 
-### AI-Powered Codebase Mapping & Intelligence Platform
+# CodeAtlas
 
-[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Next.js 15](https://img.shields.io/badge/Framework-Next.js%2015-black.svg?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
-[![Tailwind CSS v4](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC.svg?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Groq Llama 3.1](https://img.shields.io/badge/AI--Engine-Llama%203.1%20(Groq)-orange.svg?style=for-the-badge&logo=meta)](https://groq.com/)
+**AI-powered codebase intelligence for developers.**
 
-**Understand any repository in milliseconds. Visual dependency maps, interactive AI chats, and instantly shareable codebase reports.**
+Understand any GitHub repository in minutes — trace architecture, explore file structures, and ask questions about any codebase using AI.
 
-[Explore Next.js Demo](http://localhost:3000) · [Read Walkthrough](file:///Users/sumanthsmac/.gemini/antigravity-ide/brain/1815ca5d-9c99-45c3-a14b-32020ecfb0b7/walkthrough.md)
+<br />
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-codeatlas.vercel.app-6366F1?style=for-the-badge&logo=vercel&logoColor=white)](https://codeatlas-eight.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-A78BFA?style=for-the-badge)](LICENSE)
+
+<br />
+
+![CodeAtlas Hero](public/og-image.png)
 
 </div>
 
 ---
 
-## 📸 Interactive System Overview
+## Overview
 
-CodeAtlas bridges the gap between text-based chats and visual codebase navigation. Below is the workflow diagram illustrating how repository data flows through CodeAtlas from paste to interactive zoom canvas.
+CodeAtlas is a developer tool that transforms any public GitHub repository into an instantly understandable knowledge base. Paste a URL, and the AI indexes every file, maps the codebase architecture, detects the technology stack, and opens a natural language interface to answer questions about the code.
+
+Built as a portfolio-quality project demonstrating full-stack AI integration, advanced UI engineering, and production-grade deployment.
+
+---
+
+## Features
+
+| Feature | Description |
+|---|---|
+| **Repository Analysis** | Indexes any public GitHub repo — files, folders, languages, size |
+| **Architecture Map** | Interactive force-directed and hierarchical graph of file relationships |
+| **AI Chat Interface** | Ask anything about the codebase in natural language |
+| **Workspace Overview** | Tech stack detection, language distribution, GitHub insights, codebase metrics |
+| **File Explorer** | Full repository tree with filter search and file-level navigation |
+| **Floating Glass Panels** | Overview and Architecture panels float over the workspace (Apple-style) |
+| **Instant Sandbox Demos** | Pre-loaded analysis for Next.js, shadcn/ui, and Tailwind CSS |
+| **Repo History** | Recently analyzed repositories saved locally |
+| **Share Report** | Shareable permalink with deep-link auto-analysis |
+| **Keyboard Shortcuts** | Full keyboard navigation throughout the application |
+| **Command Palette** | Global ⌘K command palette for power users |
+| **Profile System** | Local username system with persistent avatar |
+
+---
+
+## Architecture
+
+### System Overview
 
 ```mermaid
-graph TD
-    A[Paste GitHub URL] -->|Fetch File Tree| B(GitHub API Server)
-    B -->|Filter Allowed Extensions| C{Workspace Processor}
-    C -->|Extract Imports/Exports| D[Architecture Map Engine]
-    C -->|Chunk Code Semantics| E[Local RAG Engine]
-    D -->|Spring Physics / Depth Layers| F[Interactive SVG Canvas]
-    E -->|Prompt Groq API| G[Llama 3.1 8B Assistant]
-    F <-->|Bi-directional Focus Sync| G
+graph TB
+    subgraph Client ["Client — Next.js App Router"]
+        LP[Landing Page]
+        WS[Workspace View]
+        FP[Floating Panels]
+        CE[Chat Engine]
+        FE[File Explorer]
+    end
+
+    subgraph AI ["AI Layer"]
+        LLM[Llama 3.1 8B]
+        IDX[File Indexer]
+        EMB[Embedding Engine]
+    end
+
+    subgraph External ["External Services"]
+        GH[GitHub API]
+        VCL[Vercel Edge Network]
+    end
+
+    LP -->|repo URL submitted| IDX
+    IDX -->|fetches repository tree| GH
+    GH -->|file contents + metadata| IDX
+    IDX -->|indexed chunks| EMB
+    EMB -->|vector store| LLM
+    WS -->|user question| CE
+    CE -->|prompt + context| LLM
+    LLM -->|streamed response| CE
+    CE --> WS
+    WS --> FP
+    WS --> FE
+    VCL -->|serves| Client
+```
+
+### Data Flow
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI as Next.js UI
+    participant API as API Route
+    participant GH as GitHub
+    participant AI as Llama 3.1 8B
+
+    User->>UI: Pastes github.com/owner/repo
+    UI->>API: POST /api/analyze { repo }
+    API->>GH: Fetch repository tree
+    GH-->>API: File list + metadata
+    API->>GH: Fetch file contents (batched)
+    GH-->>API: Raw file contents
+    API->>AI: Index + embed file chunks
+    AI-->>API: Vector embeddings stored
+    API-->>UI: Analysis complete { files, stats, tech }
+    UI->>User: Workspace loaded
+
+    User->>UI: "How does authentication work?"
+    UI->>API: POST /api/chat { question, repoContext }
+    API->>AI: Retrieve relevant chunks + prompt
+    AI-->>API: Streamed response tokens
+    API-->>UI: Stream → chat interface
+    UI->>User: Answer rendered with markdown
+```
+
+### Component Architecture
+
+```mermaid
+graph LR
+    subgraph Pages
+        HOME[page.tsx<br/>Landing]
+        WORK[workspace/page.tsx<br/>Analysis View]
+    end
+
+    subgraph Components
+        TW[TypewriterHeadline]
+        RI[RepoInput]
+        NAV[Navbar]
+        PROF[ProfileDropdown]
+
+        SIDEBAR[FileExplorer<br/>Sidebar]
+        TABS[TabBar]
+        CHAT[ChatInterface]
+        OV[OverviewPanel]
+        ARCH[ArchitectureMap]
+        FLOAT[FloatingPanel<br/>Wrapper]
+    end
+
+    subgraph Hooks & Utils
+        HIST[useRepoHistory]
+        SHARE[useShareReport]
+        THEME[useTheme]
+        TOAST[useToast]
+    end
+
+    HOME --> TW
+    HOME --> RI
+    HOME --> NAV
+    NAV --> PROF
+    WORK --> SIDEBAR
+    WORK --> TABS
+    WORK --> CHAT
+    WORK --> FLOAT
+    FLOAT --> OV
+    FLOAT --> ARCH
+    WORK --> HIST
+    WORK --> SHARE
+    NAV --> THEME
+    CHAT --> TOAST
 ```
 
 ---
 
-## 🌟 Core Flagship Features
+## Tech Stack
 
-### Landing Experience & Motion Infrastructure
-*   **Theme-Aware Orbs:** Modulates opacity and blend settings across dark and light palettes to resolve visibility issues.
-*   **Film Grain Overlay:** Utilizes inline SVG fractalNoise nodes inside SVG filter overlays to resolve digital canvas flatness.
-*   **4-Layer Composite Backdrop:** Shifts HSL base positions imperceptibly, overlays blurred color orbs, floats low-contrast dot arrays, and overlays light film grain.
-*   **Choreographed Entrance Reveals:** Cascades navbar fade-ins, breathing logo pulses, text sweeps, staggered spans, and demo showcases.
+### Frontend
 
-### 1. Interactive Architecture Map
-*   **Force-Directed Spring Physics:** Dynamic repulsion and dampening calculations that automatically arrange files like molecules.
-*   **Hierarchical Grouping:** Layered visual layout aligning file nodes from left to right based on folder depth directories.
-*   **Node Semantic Classifier:** Color codes files by type (e.g. orange for routes, blue for React code, yellow for configs).
-*   **Bi-directional Selection Sync:** Clicking nodes in the map shifts sidebar focus; clicking file structures centers the canvas map onto the corresponding node.
+| Technology | Version | Purpose |
+|---|---|---|
+| Next.js | 14 | React framework, App Router, API routes |
+| TypeScript | 5.0 | Type safety across the entire codebase |
+| Tailwind CSS | 3.0 | Utility-first styling |
+| React | 18 | UI component library |
 
-```mermaid
-flowchart LR
-    subgraph UI Layout Views
-        page[page.tsx]
-        layout[layout.tsx]
-    end
-    subgraph Components & Hooks
-        Sidebar[Sidebar.tsx]
-        Header[Header.tsx]
-        Map[ArchitectureMap.tsx]
-    end
-    subgraph API Routes & Utilities
-        aiRoute[api/ai/route.ts]
-        gitRoute[api/github/route.ts]
-    end
+### AI & Data
 
-    page --> Sidebar
-    page --> Header
-    page --> Map
-    Sidebar --> aiRoute
-    Map --> gitRoute
+| Technology | Purpose |
+|---|---|
+| Llama 3.1 8B | Core language model for analysis and Q&A |
+| Vector Embeddings | Semantic search over repository files |
+| GitHub REST API | Repository tree and file content fetching |
+
+### Infrastructure
+
+| Service | Purpose |
+|---|---|
+| Vercel | Production deployment, Edge Network |
+| GitHub | Source control, CI/CD trigger |
+
+---
+
+## Project Structure
+
 ```
-
-### 2. Workspace Preferences Drawer
-*   **Dynamic Settings Registry:** Structured dynamic configuration array mapping visual preferences instantly.
-*   **Theme Switcher Segment:** Clean, segmented control supporting **Light**, **Dark**, and **System** themes.
-*   **Local Caching Resets:** Confirmation validation rows letting you wipe layout cache data, clear recently analyzed lists, or reset the workspace to onboarding defaults.
-
-### 3. Shareable Analysis Reports
-*   **Lightweight Serverless Database:** Analysis snapshots are written as dynamic `.json` files in the `public/shares/` folder, allowing edge fetching speeds.
-*   **Read-Only Workspace:** `/share/[id]` route locks prompt inputs and chip suggestions, leaving file navigation and map zooms fully interactive for recruiters and team audits.
-
-### 4. Sandbox Demos
-*   **Zero-latency Entry:** Load `vercel/next.js`, `shadcn-ui/ui`, and `tailwindlabs/tailwindcss` snapshots instantly with pre-packaged code files, repository metrics, and pre-generated AI answers.
-
----
-
-## 🛠️ Technology Stack
-
-*   **Core:** React 19 / Next.js 15 (App Router, dynamic page segments)
-*   **Styling:** Vanilla CSS & PostCSS (Tailwind CSS v4 custom variables)
-*   **Animation:** Framer Motion (respects OS `prefers-reduced-motion` settings)
-*   **Icons:** Lucide React (Mac Sonoma-like layouts)
-*   **AI RAG:** Local AST parser feeding context to Groq Cloud (Llama 3.1 8B Instant)
-
----
-
-## 📂 Project Directory Structure
-
-```bash
 codeatlas/
-├── public/
-│   ├── demos/                  # Pre-packaged offline demo datasets (JSON)
-│   └── shares/                 # User-shared analysis snapshots (ignored from git)
-├── src/
-│   ├── app/
-│   │   ├── api/
-│   │   │   ├── ai/             # Groq RAG streaming controller
-│   │   │   ├── github/         # Raw repository fetch and AST mapper
-│   │   │   └── share/          # Snapshot storage and retrieval API
-│   │   ├── share/
-│   │   │   └── [id]/           # Read-only report view page
-│   │   ├── globals.css         # Sonoma layouts, focus outlines, and animations
-│   │   ├── layout.tsx          # System theme injector script
-│   │   └── page.tsx            # Main workspace & demo sandboxes router
-│   └── components/
-│       ├── ArchitectureMap.tsx # SVG pan/zoom node rendering graph
-│       ├── ChatWindow.tsx      # Conversation bubble streams and suggestion chips
-│       ├── Header.tsx          # Status indicators and preferences triggers
-│       ├── PreferencePanel.tsx # Registry-driven settings drawer
-│       └── Sidebar.tsx         # Mobile slide-over drawer file explorer
-└── package.json
+├── app/
+│   ├── page.tsx                  # Landing page
+│   ├── layout.tsx                # Root layout, font loading
+│   ├── globals.css               # Design tokens, animations
+│   └── workspace/
+│       └── page.tsx              # Analysis workspace
+│
+├── components/
+│   ├── landing/
+│   │   ├── TypewriterHeadline.tsx   # Animated cycling headline
+│   │   ├── RepoInput.tsx            # Glass pill URL input
+│   │   ├── SandboxShowcases.tsx     # Pre-loaded demo repos
+│   │   └── HowItWorks.tsx           # 3-step explainer section
+│   │
+│   ├── workspace/
+│   │   ├── FileExplorer.tsx         # Left sidebar file tree
+│   │   ├── TabBar.tsx               # Overview / Architecture / Chat tabs
+│   │   ├── ChatInterface.tsx        # AI conversation panel
+│   │   ├── FloatingPanel.tsx        # Apple-style overlay wrapper
+│   │   ├── OverviewPanel.tsx        # Repo stats and insights
+│   │   └── ArchitectureMap.tsx      # Force-directed node graph
+│   │
+│   └── ui/
+│       ├── Navbar.tsx               # Global navigation bar
+│       ├── ProfileDropdown.tsx      # Local auth system
+│       ├── CommandPalette.tsx       # Global ⌘K overlay
+│       ├── Toast.tsx                # Notification system
+│       └── SearchBar.tsx            # Unified search component
+│
+├── hooks/
+│   ├── useRepoHistory.ts         # localStorage recent repos
+│   ├── useShareReport.ts         # Permalink generation
+│   └── useTypewriter.ts          # Typewriter animation logic
+│
+├── lib/
+│   ├── github.ts                 # GitHub API client
+│   ├── indexer.ts                # File chunking and indexing
+│   └── ai.ts                     # LLM prompt construction
+│
+└── public/
+    ├── logo.png
+    └── og-image.png
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-*   Node.js 18.0+
-*   npm or yarn
 
-### 1. Clone & Install
+- Node.js 18+
+- npm or yarn
+- A GitHub account (for API access)
+
+### Installation
+
 ```bash
+# Clone the repository
 git clone https://github.com/Sumanthss888/codeatlas.git
 cd codeatlas
+
+# Install dependencies
 npm install
+
+# Set up environment variables
+cp .env.example .env.local
 ```
 
-### 2. Configure Environment Variables
-Create a `.env.local` file in the root directory:
-```env
-OPENAI_API_KEY=your_groq_or_openai_api_key_here
-```
-*(Note: If no key is provided, CodeAtlas will automatically run in fallback Sandbox validation mode with mock streaming replies).*
+### Environment Variables
 
-### 3. Run Development Server
+```bash
+# .env.local
+
+# GitHub API (optional — increases rate limit from 60 to 5000 req/hr)
+GITHUB_TOKEN=your_github_personal_access_token
+
+# AI Provider
+AI_API_KEY=your_ai_api_key
+AI_MODEL=llama-3.1-8b
+```
+
+### Run Locally
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 4. Build for Production
+### Deploy to Vercel
+
 ```bash
-npm run build
-npm run start
+npx vercel --prod
+```
+
+Or connect your GitHub repository to [Vercel](https://vercel.com) for automatic deployments on every push.
+
+---
+
+## Usage
+
+**1. Analyze any public repository**
+
+Paste a GitHub URL into the input field:
+```
+https://github.com/vercel/next.js
+https://github.com/facebook/react
+https://github.com/your-org/your-repo
+```
+
+**2. Explore the workspace**
+
+- **Overview** — view tech stack, language distribution, GitHub stats, and codebase metrics
+- **Architecture Map** — interactive graph of file relationships, switch between Force Directed and Hierarchical layouts
+- **Chat** — ask questions about the codebase in plain English
+
+**3. Keyboard shortcuts**
+
+| Shortcut | Action |
+|---|---|
+| `⌘ K` | Open command palette |
+| `⌘ Enter` | Submit repository for analysis |
+| `Escape` | Close any open panel |
+| `1` `2` `3` | Switch between tabs |
+| `?` | Show all keyboard shortcuts |
+
+---
+
+## Design System
+
+CodeAtlas uses a custom glass morphism design system inspired by Apple, Resend, and Linear.
+
+```
+Background:   #0A0A0F  — near-black with blue undertone
+Accent:       #4F6EF7  — electric indigo (primary brand color)
+Secondary:    #7B5CF0  — violet (gradient pair)
+Text:         #F2F2F7  — Apple-style off-white
+Muted:        #98989F  — secondary text
+Glass:        rgba(255,255,255,0.04) + blur(20px)
+```
+
+**Typography**
+- Display / Headings — Outfit (300–700)
+- Body / UI — Inter (400–500)
+- Code / Paths — JetBrains Mono (400–500)
+
+---
+
+## Roadmap
+
+- [ ] Export analysis as PDF or Markdown
+- [ ] File click → AI explanation popup
+- [ ] Color-coded nodes in Architecture Map by file type
+- [ ] Repo comparison mode (side by side)
+- [ ] Private repository support via GitHub OAuth
+- [ ] Saved analyses with user accounts
+
+---
+
+## Contributing
+
+Contributions are welcome. Please open an issue first to discuss what you would like to change.
+
+```bash
+# Fork the repo, then:
+git checkout -b feat/your-feature-name
+git commit -m "feat: add your feature"
+git push origin feat/your-feature-name
+# Open a pull request
 ```
 
 ---
 
-## ♿ Accessibility & Quality Standards
+## License
 
-*   **WCAG AA Focus Outlines:** Focused buttons, tabs, inputs, and canvas elements display high-contrast rings (`2px solid --accent-color`) immediately on keyboard tabbing.
-*   **Full Keyboard Loops:** Navigate the command palette, settings drawer, and file explorer using `Tab`, `Shift+Tab`, `Enter`, and `Escape`.
-*   **Reduced Motion:** Slide-over sheets detect OS settings. If active, all transitions instantly mount to prevent layout delays.
-*   **Perfect SEO Hierarchy:** Structured semantic HTML tags with unique interactive element IDs ensuring a Lighthouse score of `100/100`.
-*   **Premium Visual Refinements:** Custom dark-first charcoal variables, sandblasted frosted glass effects, and indigo accent tokens (`#6366F1`) matching modern developer ecosystems.
-*   **IDE Folder Indentation Guides:** Compact indentation guide lines (`border-left` on nested levels) preventing excessive horizontal shifting and matching elite IDE designs.
-*   **Linear-Style Metrics Dashboard:** High-contrast grid layouts, modern dashboard cards, and micro-hover translation effects on repo briefing panels.
+MIT — see [LICENSE](LICENSE) for details.
 
 ---
+
 <div align="center">
-Created with 🤍 for the developer ecosystem.
+
+Built by [Sumanth](https://github.com/Sumanthss888)
+
+[Live Demo](https://codeatlas-eight.vercel.app/) · [Report a Bug](https://github.com/Sumanthss888/codeatlas/issues) · [Request a Feature](https://github.com/Sumanthss888/codeatlas/issues)
+
 </div>
