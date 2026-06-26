@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { UserPresenceProvider } from "@/components/user/UserPresenceProvider";
 import { WorkspaceOverlayProvider } from "@/components/workspace-overlay/WorkspaceOverlayProvider";
+import { ToastProvider } from "@/components/ui/Toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,7 +45,9 @@ export default function RootLayout({
       <body className="app-root">
         <UserPresenceProvider>
           <WorkspaceOverlayProvider>
-            {children}
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </WorkspaceOverlayProvider>
         </UserPresenceProvider>
       </body>
