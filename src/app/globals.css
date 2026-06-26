@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=JetBrains+Mono:wght@500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1107,6 +1109,8 @@ input, button, select, textarea {
 }
 
 .onboarding-title {
+  text-align: center;
+  white-space: normal;
   font-size: 38px;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -1177,31 +1181,72 @@ input, button, select, textarea {
 }
 
 .onboarding-logo-text {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-secondary) 25%, var(--text-primary) 50%, var(--text-secondary) 75%, var(--text-muted) 100%);
+  color: transparent;
+  background: linear-gradient(90deg, 
+    #F59E0B 0%,
+    #FCD34D 30%,
+    #60A5FA 65%,
+    #818CF8 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   opacity: 0;
-  transform: translateY(6px);
-  animation: productLabelEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, gradientSweep 8s linear infinite;
-  animation-delay: 200ms, 2s;
+  letter-spacing: 0.5em;
+  filter: none;
+  transition: letter-spacing 0.3s ease, filter 0.3s ease;
+  animation: goldToBlueEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards,
+             goldToBlue 4s ease-in-out 1.35s infinite alternate;
 }
 
-@keyframes productLabelEntrance {
-  to {
+.onboarding-logo-text:hover {
+  filter: drop-shadow(0 0 16px rgba(252, 211, 77, 0.9)) drop-shadow(0 0 40px rgba(252, 211, 77, 0.4)) !important;
+  letter-spacing: 0.28em !important;
+}
+
+@keyframes goldToBlueEntrance {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.5em;
+    filter: none;
+    background-position: 0% center;
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
     letter-spacing: 0.22em;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7))
+            drop-shadow(0 0 20px rgba(245, 158, 11, 0.3));
+    background-position: 0% center;
   }
 }
 
-@keyframes gradientSweep {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+@keyframes goldToBlue {
+  0% {
+    background-position: 0% center;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7))
+            drop-shadow(0 0 20px rgba(245, 158, 11, 0.3));
+  }
+  35% {
+    background-position: 50% center;
+    filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.6))
+            drop-shadow(0 0 24px rgba(252, 211, 77, 0.25));
+  }
+  70% {
+    background-position: 100% center;
+    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.65))
+            drop-shadow(0 0 22px rgba(96, 165, 250, 0.25));
+  }
+  100% {
+    background-position: 200% center;
+    filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.7))
+            drop-shadow(0 0 20px rgba(129, 140, 248, 0.3));
+  }
 }
 
 .onboarding-input-container {
@@ -4606,10 +4651,23 @@ input, textarea, button, select, a, [role="button"] {
 
 /* Typewriter Cursor Blinking Utility */
 @keyframes cursorBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
 }
 
 .animate-cursor-blink {
-  animation: cursorBlink 0.8s step-end infinite;
+  animation: cursorBlink 0.75s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-logo-text {
+    animation: none !important;
+    opacity: 1 !important;
+    letter-spacing: 0.22em !important;
+    filter: none !important;
+    background: linear-gradient(90deg, #60A5FA 0%, #818CF8 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
 }
