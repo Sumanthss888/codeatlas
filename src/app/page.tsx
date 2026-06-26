@@ -231,33 +231,24 @@ export default function Home() {
   const [isDemoMode, setIsDemoMode] = useState(false);
 
   const handleShare = async () => {
-    if (shareStatus === "loading") return;
+    if (shareStatus === "loading" || shareStatus === "success") return;
+    if (!currentRepoUrl) return;
+
     setShareStatus("loading");
     try {
-      const res = await fetch("/api/share", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          files: repoFiles,
-          summary: repoSummary,
-          githubMetadata,
-          messages,
-        }),
-      });
+      const permalink = buildPermalink(currentRepoUrl);
+      const copied = await copyToClipboard(permalink);
 
-      if (!res.ok) throw new Error("Failed to generate share report");
-      const data = await res.json();
-      const shareUrl = window.location.origin + "/share/" + data.id;
-      
-      await navigator.clipboard.writeText(shareUrl);
-      setShareStatus("success");
-      setTimeout(() => setShareStatus("idle"), 2500);
+      if (copied) {
+        setShareStatus("success");
+        setTimeout(() => setShareStatus("idle"), 2500);
+      } else {
+        throw new Error("Copy failed");
+      }
     } catch (err) {
-      console.error("Failed to share report:", err);
+      console.error("Failed to copy link:", err);
       setShareStatus("error");
-      setTimeout(() => setShareStatus("idle"), 3000);
+      setTimeout(() => setShareStatus("idle"), 2500);
     }
   };
 
