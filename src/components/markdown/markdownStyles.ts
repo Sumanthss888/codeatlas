@@ -1,6 +1,8 @@
 export const markdownCSS = `
 .markdown-summary-container {
   font-family: var(--font-family);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .markdown-h3 {
