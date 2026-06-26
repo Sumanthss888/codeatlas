@@ -241,6 +241,7 @@ export default function Home() {
 
       if (copied) {
         setShareStatus("success");
+        showToast("Share link copied! ✓", "success");
         setTimeout(() => setShareStatus("idle"), 2500);
       } else {
         throw new Error("Copy failed");
@@ -248,6 +249,7 @@ export default function Home() {
     } catch (err) {
       console.error("Failed to copy link:", err);
       setShareStatus("error");
+      showToast("Unable to copy link.", "error");
       setTimeout(() => setShareStatus("idle"), 2500);
     }
   };
