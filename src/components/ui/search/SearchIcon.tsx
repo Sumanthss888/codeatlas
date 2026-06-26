@@ -1,4 +1,5 @@
 import React from "react";
-export default function SearchIcon() {
+interface Props { size?: number; }
+export default function SearchIcon({ size = 14 }: Props) {
   return <span>🔍</span>;
 }
