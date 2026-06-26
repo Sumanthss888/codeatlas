@@ -21,6 +21,10 @@ export function parsePermalink(url: string): ParsedLink {
       }
       result.repoUrl = normalized;
     }
+    const tab = urlObj.searchParams.get("tab");
+    if (tab === "overview") result.tab = "overview";
+    else if (tab === "architecture" || tab === "map") result.tab = "map";
+    else if (tab === "chat") result.tab = "chat";
   } catch (err) {
     console.error("Failed to parse URL query parameters", err);
   }
