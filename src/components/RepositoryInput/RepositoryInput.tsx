@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect, KeyboardEvent } from "react";
 import GitHubIcon from "./GitHubIcon";
 import AnalyzeButton from "./AnalyzeButton";
@@ -18,6 +19,12 @@ export default function RepositoryInput({ onAnalyze, isAnalyzing, initialValue =
   const [url, setUrl] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
 
+  useEffect(() => {
+    if (initialValue) {
+      setUrl(initialValue);
+    }
+  }, [initialValue]);
+
   const handleAnalyze = () => {
     const trimmed = url.trim();
     if (!trimmed || isAnalyzing) return;
@@ -33,9 +40,12 @@ export default function RepositoryInput({ onAnalyze, isAnalyzing, initialValue =
   return (
     <div className="signature-input-wrapper">
       <div className={`signature-input-console ${isFocused ? "focused" : ""}`}>
+        {/* Left GitHub Icon */}
         <div className="console-left-icon">
           <GitHubIcon isFocused={isFocused} />
         </div>
+
+        {/* Input Text Field */}
         <input
           type="text"
           className="console-input-field"
@@ -48,13 +58,35 @@ export default function RepositoryInput({ onAnalyze, isAnalyzing, initialValue =
           disabled={isAnalyzing}
           aria-label="GitHub repository URL"
         />
-        <AnalyzeButton
-          onClick={handleAnalyze}
-          disabled={!canSubmit}
-          isAnalyzing={isAnalyzing}
-        />
+
+        {/* Subtle Vertical Divider */}
+        <div className="console-divider" />
+
+        {/* Analyze button CTA */}
+        <div className="console-right-action">
+          <AnalyzeButton
+            onClick={handleAnalyze}
+            isAnalyzing={isAnalyzing}
+            disabled={!canSubmit}
+          />
+        </div>
       </div>
-      <ExampleChips onChipClick={(val) => setUrl(val)} />
+
+      {/* Example Repository shortcuts */}
+      <ExampleChips
+        onSelect={(repoUrl) => setUrl(repoUrl)}
+        visible={!url && !isAnalyzing}
+      />
+
+      {/* Inline validation hint */}
+      {url && !isLikelyGitHubUrl(url) && !isAnalyzing && (
+        <p className="repo-validation-error">
+          Enter a valid GitHub URL, e.g.{" "}
+          <code className="repo-validation-code">
+            https://github.com/owner/repo
+          </code>
+        </p>
+      )}
     </div>
   );
 }
