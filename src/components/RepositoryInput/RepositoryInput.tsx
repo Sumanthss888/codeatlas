@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState, KeyboardEvent } from "react";
+import React, { useState, useEffect, KeyboardEvent } from "react";
 import GitHubIcon from "./GitHubIcon";
 import AnalyzeButton from "./AnalyzeButton";
 import ExampleChips from "./ExampleChips";
@@ -8,14 +7,15 @@ import ExampleChips from "./ExampleChips";
 type Props = {
   onAnalyze: (url: string) => void;
   isAnalyzing: boolean;
+  initialValue?: string;
 };
 
 function isLikelyGitHubUrl(value: string): boolean {
   return value.trim().length > 0 && value.includes("github.com/");
 }
 
-export default function RepositoryInput({ onAnalyze, isAnalyzing }: Props) {
-  const [url, setUrl] = useState("");
+export default function RepositoryInput({ onAnalyze, isAnalyzing, initialValue = "" }: Props) {
+  const [url, setUrl] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
 
   const handleAnalyze = () => {
@@ -33,12 +33,9 @@ export default function RepositoryInput({ onAnalyze, isAnalyzing }: Props) {
   return (
     <div className="signature-input-wrapper">
       <div className={`signature-input-console ${isFocused ? "focused" : ""}`}>
-        {/* Left GitHub Icon */}
         <div className="console-left-icon">
           <GitHubIcon isFocused={isFocused} />
         </div>
-
-        {/* Input Text Field */}
         <input
           type="text"
           className="console-input-field"
@@ -51,35 +48,13 @@ export default function RepositoryInput({ onAnalyze, isAnalyzing }: Props) {
           disabled={isAnalyzing}
           aria-label="GitHub repository URL"
         />
-
-        {/* Subtle Vertical Divider */}
-        <div className="console-divider" />
-
-        {/* Analyze button CTA */}
-        <div className="console-right-action">
-          <AnalyzeButton
-            onClick={handleAnalyze}
-            isAnalyzing={isAnalyzing}
-            disabled={!canSubmit}
-          />
-        </div>
+        <AnalyzeButton
+          onClick={handleAnalyze}
+          disabled={!canSubmit}
+          isAnalyzing={isAnalyzing}
+        />
       </div>
-
-      {/* Example Repository shortcuts */}
-      <ExampleChips
-        onSelect={(repoUrl) => setUrl(repoUrl)}
-        visible={!url && !isAnalyzing}
-      />
-
-      {/* Inline validation hint */}
-      {url && !isLikelyGitHubUrl(url) && !isAnalyzing && (
-        <p className="repo-validation-error">
-          Enter a valid GitHub URL, e.g.{" "}
-          <code className="repo-validation-code">
-            https://github.com/owner/repo
-          </code>
-        </p>
-      )}
+      <ExampleChips onChipClick={(val) => setUrl(val)} />
     </div>
   );
 }
