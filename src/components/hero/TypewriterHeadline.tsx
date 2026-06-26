@@ -7,7 +7,7 @@ const WORDS = [
   "facebook/react",
   "tailwindcss",
   "your team's repo",
-  "any codebase"
+  "codebase"
 ];
 
 const TYPE_SPEED = 55;
@@ -42,7 +42,7 @@ export default function TypewriterHeadline() {
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      setDisplayText("any codebase");
+      setDisplayText("codebase");
       setIsFinalWordComplete(true);
       return;
     }
