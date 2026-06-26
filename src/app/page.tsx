@@ -11,6 +11,10 @@ import PreferencesPanel from "@/components/PreferencesPanel";
 import useWorkspaceOverlay from "@/components/workspace-overlay/useWorkspaceOverlay";
 import OverviewOverlay from "@/components/workspace-overlay/overlays/OverviewOverlay";
 import ArchitectureOverlay from "@/components/workspace-overlay/overlays/ArchitectureOverlay";
+import { buildPermalink } from "@/lib/share/buildPermalink";
+import { copyToClipboard } from "@/lib/share/copyToClipboard";
+import { parsePermalink } from "@/lib/share/parsePermalink";
+import { useToast } from "@/components/ui/Toast";
 import { Sparkles } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────
