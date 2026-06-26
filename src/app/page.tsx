@@ -207,6 +207,20 @@ export default function Home() {
     } else {
       closeOverlay();
     }
+    
+    // Sync browser URL search parameters for tab changes
+    if (typeof window !== "undefined" && currentRepoUrl) {
+      const urlObj = new URL(window.location.href);
+      if (tab === "chat") {
+        urlObj.searchParams.delete("tab");
+      } else if (tab === "overview") {
+        urlObj.searchParams.set("tab", "overview");
+      } else if (tab === "map") {
+        urlObj.searchParams.set("tab", "architecture");
+      }
+      window.history.replaceState(null, "", urlObj.toString());
+    }
+
     try {
       sessionStorage.setItem("codeatlas_active_tab", tab === activeTab ? "chat" : tab);
     } catch {}
