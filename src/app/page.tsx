@@ -146,7 +146,7 @@ export default function Home() {
           id: "1",
           role: "assistant",
           content:
-            "Welcome to **CodeAtlas** 🗺️ — paste a GitHub repository URL above and I'll analyze your codebase.",
+            "Welcome to **CodeAtlas** — paste a GitHub repository URL above and I'll analyze your codebase.",
           timestamp: new Date(),
         },
       ]);
@@ -223,7 +223,7 @@ export default function Home() {
       id: "1",
       role: "assistant",
       content:
-        "Welcome to **CodeAtlas** 🗺️ — paste a GitHub repository URL above and I'll analyze your codebase.",
+        "Welcome to **CodeAtlas** — paste a GitHub repository URL above and I'll analyze your codebase.",
       timestamp: new Date(),
     },
   ]);
@@ -483,7 +483,7 @@ export default function Home() {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: `Repository loaded successfully ✅  
+        content: `Repository loaded successfully.  
 Indexed ${data.totalFiles} files from ${repoName}.  
 
 You can now:
@@ -505,7 +505,7 @@ You can now:
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: `Analysis failed ❌\n${message}`,
+        content: `Analysis failed: ${message}`,
         timestamp: new Date(),
       };
 
@@ -622,7 +622,7 @@ You can now:
         role: "assistant",
         content:
           error?.message ||
-          "⚠️ AI failed. Check API / model configuration.",
+          "AI failed. Check API / model configuration.",
         timestamp: new Date(),
       };
 
@@ -654,7 +654,7 @@ You can now:
         id: "1",
         role: "assistant",
         content:
-          "Welcome to **CodeAtlas** 🗺️ — paste a GitHub repository URL above and I'll analyze your codebase.",
+          "Welcome to **CodeAtlas** — paste a GitHub repository URL above and I'll analyze your codebase.",
         timestamp: new Date(),
       },
     ]);
@@ -788,7 +788,6 @@ You can now:
                       </>
                     ) : shareStatus === "error" ? (
                       <>
-                        <span>⚠️</span>
                         Failed
                       </>
                     ) : (
@@ -932,7 +931,7 @@ You can now:
                   style={{ opacity: 0, animation: "cssFade 0.6s ease-out forwards", animationDelay: "1250ms" }}
                 >
                   <span className="onboarding-demo-label">
-                    ⚡ Instant Sandbox Showcases
+                    Instant Sandbox Showcases
                   </span>
                   <div className="onboarding-demo-list">
                     <button

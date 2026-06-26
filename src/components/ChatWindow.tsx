@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, KeyboardEvent, useMemo } from "react";
 import MessageBubble from "./MessageBubble";
 import { Message, RepoFile } from "@/app/page";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Lock } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type Props = {
@@ -249,7 +249,8 @@ export default function ChatWindow({
       ) : (
         <div className="chat-input-area floating" style={{ zIndex: 12 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", gap: "8px", color: "var(--text-muted)", fontSize: "11.5px", background: "var(--bg-glass)", border: "1px solid var(--border-default)", padding: "10px 14px", borderRadius: "var(--radius-sm)" }}>
-            <span>🔒 This report is read-only. Live queries are disabled.</span>
+            <Lock size={12} style={{ opacity: 0.7 }} />
+            <span>This report is read-only. Live queries are disabled.</span>
           </div>
         </div>
       )}

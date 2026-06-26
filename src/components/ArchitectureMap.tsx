@@ -19,7 +19,9 @@ import {
   HelpCircle,
   ZoomIn,
   ZoomOut,
-  X
+  X,
+  Zap,
+  Package
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import SearchField from "@/components/ui/search/SearchField";
@@ -793,22 +795,28 @@ export default function ArchitectureMap({
               onClick={() => selectAndCenterNode(insights.entryPoint.path)}
               className="insight-chip"
               title={insights.entryPoint.path}
+              style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
             >
-              ⚡ Entry Point: {insights.entryPoint.name}
+              <Zap size={11} className="text-accent" />
+              <span>Entry Point: {insights.entryPoint.name}</span>
             </button>
             <button
               onClick={() => selectAndCenterNode(insights.utilityHub.path)}
               className="insight-chip"
               title={insights.utilityHub.path}
+              style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
             >
-              📦 Large Hub: {insights.utilityHub.name}
+              <Package size={11} />
+              <span>Large Hub: {insights.utilityHub.name}</span>
             </button>
             <button
               onClick={() => selectAndCenterNode(insights.mostConnected.path)}
               className="insight-chip"
               title={insights.mostConnected.path}
+              style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
             >
-              🔗 Connected: {insights.mostConnected.name}
+              <Link size={11} />
+              <span>Connected: {insights.mostConnected.name}</span>
             </button>
           </div>
         )}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Zap } from "lucide-react";
 
 type Props = {
   onClick: () => void;
@@ -37,7 +38,7 @@ export default function AnalyzeButton({ onClick, isAnalyzing, disabled }: Props)
         </>
       ) : (
         <>
-          <span>⚡</span>
+          <Zap size={14} />
           Analyze
         </>
       )}

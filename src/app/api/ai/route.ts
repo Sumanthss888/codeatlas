@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (!apiKey) {
       const encoder = new TextEncoder();
       const mockChunks = [
-        "**CodeAtlas Assistant** 🗺️\n\n",
+        "**CodeAtlas Assistant**\n\n",
         "Here is a mock analysis of your codebase for validation:\n\n",
         "```typescript\n",
         "// Configuration validation sample\n",

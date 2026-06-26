@@ -1722,17 +1722,18 @@ input, button, select, textarea {
   background: rgba(var(--bg-glass-rgb), 0.85);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
+  border: 1px solid transparent;
+  border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  padding: 12px 16px 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 12px 18px 8px;
+  transition: box-shadow 0.22s ease, background-color 0.22s ease;
   z-index: 20;
 }
 
 .chat-input-area.floating:focus-within {
-  border-color: var(--border-strong);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), var(--shadow-card);
+  border-color: var(--border-subtle);
+  background: var(--bg-surface);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35);
 }
 
 .chat-input-wrapper-floating {
@@ -1897,6 +1898,18 @@ a:focus-visible,
   outline: 2px solid var(--border-strong) !important;
   outline-offset: 2px !important;
   box-shadow: none !important;
+}
+
+/* Prevent blue/default outlines and tap overlays on click/touch focus */
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input, textarea, button, select, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 
@@ -3159,29 +3172,28 @@ a:focus-visible,
   display: flex;
   align-items: center;
   height: 54px; /* compact, premium height */
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--bg-glass);
   backdrop-filter: var(--surface-blur);
   -webkit-backdrop-filter: var(--surface-blur);
-  border: 1px solid var(--border-default);
+  border: 1px solid transparent;
   padding: 0 var(--space-4);
   box-shadow: var(--shadow-card);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: box-shadow 0.22s ease, background-color 0.22s ease;
   position: relative;
   z-index: 10;
   -webkit-tap-highlight-color: transparent !important;
 }
 
 .signature-input-console:hover {
-  border-color: var(--border-strong);
   background: var(--bg-glass-hover);
 }
 
-/* Focused Console State - Subtle Gray Border, NO blue halo */
+/* Focused Console State - Faded border boundary, soft drop shadow, NO colored halo */
 .signature-input-console.focused {
-  border-color: var(--border-strong);
-  background: var(--bg-glass-hover);
-  box-shadow: var(--shadow-card);
+  border-color: var(--border-subtle);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), var(--shadow-card);
 }
 
 .console-left-icon {
@@ -4153,13 +4165,8 @@ a:focus-visible,
 /* Focus State */
 .search-field-container.focused {
   border-color: var(--accent-color);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.15); /* Accent tint halo */
-}
-
-/* Dark mode override for focus */
-.dark .search-field-container.focused {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 /* Icon */
@@ -4428,10 +4435,14 @@ a:focus-visible,
 }
 
 .metric-summary-value {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .metric-summary-label {
@@ -4588,7 +4599,7 @@ a:focus-visible,
 /* Sidebar Specific UI Grid fixes */
 .sidebar-summary-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-2);
   margin-top: 8px;
 }
