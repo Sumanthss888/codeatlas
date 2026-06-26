@@ -841,6 +841,7 @@ You can now:
                 <RepositoryInput
                   onAnalyze={handleAnalyze}
                   isAnalyzing={fetchState.status === "loading"}
+                  initialValue={initialRepoInput}
                 />
 
                 {/* Instant sandbox demo entry points */}
