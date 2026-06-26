@@ -4097,6 +4097,7 @@ a:focus-visible,
   z-index: 999;
   pointer-events: none;
 }
+
 .toast-popup {
   pointer-events: auto;
   min-width: 200px;
@@ -4113,4 +4114,13 @@ a:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.toast-popup.success {
+  border-left: 3px solid var(--color-success);
+}
+
+.toast-popup.error {
+  border-left: 3px solid var(--color-error);
+  color: var(--color-error);
 }
