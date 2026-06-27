@@ -16,6 +16,7 @@ import { copyToClipboard } from "@/lib/share/copyToClipboard";
 import { parsePermalink } from "@/lib/share/parsePermalink";
 import { useToast } from "@/components/ui/Toast";
 import { Sparkles } from "lucide-react";
+import SegmentedControl from "@/components/ui/SegmentedControl";
 
 // ─── Types ─────────────────────────────────────────────
 
@@ -39,6 +40,53 @@ export type FetchState =
   | { status: "error"; message: string };
 
 // ─── Component ─────────────────────────────────────────
+
+const tabOptions = [
+  {
+    value: "overview" as const,
+    label: "Overview",
+    icon: <Sparkles size={13} className="tab-icon" />,
+    title: "View repository metrics, tech stack, and summaries",
+  },
+  {
+    value: "map" as const,
+    label: "Architecture Map",
+    icon: (
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="tab-icon"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+    title: "Explore codebase dependency graph",
+  },
+  {
+    value: "chat" as const,
+    label: "Chat",
+    icon: (
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="tab-icon"
+      >
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+    title: "View full-width chat interface",
+  },
+];
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
@@ -699,52 +747,11 @@ You can now:
                     </svg>
                     Files
                   </button>
-                  <button
-                    className={`workspace-tab-btn ${activeTab === "overview" ? "active" : ""}`}
-                    onClick={() => handleSetActiveTab("overview")}
-                    title="View repository metrics, tech stack, and summaries"
-                  >
-                    <Sparkles size={13} className="tab-icon" />
-                    Overview
-                  </button>
-                  <button
-                    className={`workspace-tab-btn ${activeTab === "map" ? "active" : ""}`}
-                    onClick={() => handleSetActiveTab("map")}
-                    title="Explore codebase dependency graph"
-                  >
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="tab-icon"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                    Architecture Map
-                  </button>
-                  <button
-                    className={`workspace-tab-btn ${activeTab === "chat" ? "active" : ""}`}
-                    onClick={() => handleSetActiveTab("chat")}
-                    title="View full-width chat interface"
-                  >
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="tab-icon"
-                    >
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                    Chat
-                  </button>
+                  <SegmentedControl
+                    options={tabOptions}
+                    selectedValue={activeTab}
+                    onChange={handleSetActiveTab}
+                  />
                 </div>
 
                 {/* Share Report Button */}
