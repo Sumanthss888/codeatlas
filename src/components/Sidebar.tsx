@@ -20,6 +20,8 @@ import { LogoIcon } from "./Logo";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import SearchField from "@/components/ui/search/SearchField";
+import MetricCard from "@/components/ui/MetricCard";
+import RepositoryProgress from "@/components/ui/RepositoryProgress";
 
 type TreeNode =
   | { kind: "folder"; name: string; path: string; children: TreeNode[] }
@@ -334,23 +336,11 @@ export default function Sidebar({
         <div className="sidebar-section-label-alt">
           Workspace Summary
         </div>
-        <div className="repo-summary-grid">
-          <div className="summary-card">
-            <span className="summary-card-val">{stats.fileCount}</span>
-            <span className="summary-card-lbl">Files</span>
-          </div>
-          <div className="summary-card">
-            <span className="summary-card-val">{stats.folderCount}</span>
-            <span className="summary-card-lbl">Folders</span>
-          </div>
-          <div className="summary-card">
-            <span className="summary-card-val">{stats.primaryLang}</span>
-            <span className="summary-card-lbl">Lang</span>
-          </div>
-          <div className="summary-card">
-            <span className="summary-card-val">{stats.sizeStr}</span>
-            <span className="summary-card-lbl">Size</span>
-          </div>
+        <div className="sidebar-summary-grid">
+          <MetricCard value={stats.fileCount} label="Files" />
+          <MetricCard value={stats.folderCount} label="Folders" />
+          <MetricCard value={stats.primaryLang} label="Lang" />
+          <MetricCard value={stats.sizeStr} label="Size" />
         </div>
       </div>
 
@@ -384,12 +374,12 @@ export default function Sidebar({
 
       {/* Footer */}
       <div className="sidebar-footer">
-        <div className="sidebar-footer-stats">
-          <span>Indexed files:</span>
-          <span className="sidebar-footer-count">
-            {filteredFiles.length} / {files.length}
-          </span>
-        </div>
+        <RepositoryProgress
+          label="Indexed files"
+          value={filteredFiles.length}
+          total={files.length}
+          status="success"
+        />
       </div>
     </aside>
   );
