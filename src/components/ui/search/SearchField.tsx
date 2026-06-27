@@ -9,7 +9,9 @@ const SearchField = forwardRef((props: any, ref: any) => {
         ref={ref}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onKeyDown={(e) => { if(props.onKeyDown) props.onKeyDown(e); }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") props.onChange("");
+        }}
       />
       {props.value && <ClearButton onClick={() => {}} />}
     </div>
