@@ -22,6 +22,8 @@ import WorkspaceOverlay from "../WorkspaceOverlay";
 import WorkspaceOverlayHeader from "../WorkspaceOverlayHeader";
 import WorkspaceOverlayBody from "../WorkspaceOverlayBody";
 import MarkdownRenderer from "../../markdown/MarkdownRenderer";
+import ActionCard from "@/components/ui/ActionCard";
+import MetricCard from "@/components/ui/MetricCard";
 
 type Props = {
   isOpen: boolean;
@@ -313,29 +315,19 @@ export default function OverviewOverlay({
       <WorkspaceOverlayBody>
         <div className="overview-dashboard-layout">
           
-          {/* Row 1: Codebase Statistics (Anchor visual numbers) */}
-          <motion.div variants={cardVariants} className="overview-hero-metrics-panel glass-panel">
+          <motion.div variants={cardVariants} className="overview-hero-metrics-panel">
             <div className="hero-metrics-grid">
-              <div className="hero-metric-card">
-                <span className="hero-metric-val">{metrics.totalFiles}</span>
-                <span className="hero-metric-lbl">Total Files</span>
-              </div>
-              <div className="hero-metric-card">
-                <span className="hero-metric-val">{metrics.totalFolders}</span>
-                <span className="hero-metric-lbl">Folders</span>
-              </div>
-              <div className="hero-metric-card">
-                <span className="hero-metric-val">
-                  {metrics.totalLoc >= 1000
+              <MetricCard value={metrics.totalFiles} label="Total Files" />
+              <MetricCard value={metrics.totalFolders} label="Folders" />
+              <MetricCard
+                value={
+                  metrics.totalLoc >= 1000
                     ? `${(metrics.totalLoc / 1000).toFixed(1)}k`
-                    : metrics.totalLoc}
-                </span>
-                <span className="hero-metric-lbl">Estimated LOC</span>
-              </div>
-              <div className="hero-metric-card">
-                <span className="hero-metric-val">{metrics.maxDepth}</span>
-                <span className="hero-metric-lbl">Max Directory Depth</span>
-              </div>
+                    : metrics.totalLoc
+                }
+                label="Estimated LOC"
+              />
+              <MetricCard value={metrics.maxDepth} label="Max Directory Depth" />
             </div>
           </motion.div>
 
@@ -372,26 +364,18 @@ export default function OverviewOverlay({
                 <h3>Guided Exploration</h3>
               </div>
               <div className="widget-content">
-                <div className="guided-actions-list-styled">
-                  {QUICK_ACTIONS.map((action, idx) => {
-                    const Icon = action.icon;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          onSendMessage(action.prompt);
-                          onClose();
-                        }}
-                        className="guided-action-row-btn"
-                      >
-                        <span className="btn-left-content">
-                          <Icon size={12} className="row-icon text-accent" />
-                          <span className="row-label">{action.label}</span>
-                        </span>
-                        <ArrowRight size={11} className="row-arrow" />
-                      </button>
-                    );
-                  })}
+                <div className="guided-actions-list-styled" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {QUICK_ACTIONS.map((action, idx) => (
+                    <ActionCard
+                      key={idx}
+                      icon={action.icon}
+                      label={action.label}
+                      onClick={() => {
+                        onSendMessage(action.prompt);
+                        onClose();
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>
