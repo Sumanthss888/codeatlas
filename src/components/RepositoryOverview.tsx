@@ -19,6 +19,8 @@ import {
   FolderOpen
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import ActionCard from "@/components/ui/ActionCard";
+import MetricCard from "@/components/ui/MetricCard";
 
 type Props = {
   files: RepoFile[];
@@ -386,23 +388,15 @@ export default function RepositoryOverview({
             </div>
             <div className="card-content">
               <p className="section-subtitle">Click a quick action to launch an AI workspace query:</p>
-              <div className="quick-actions-list">
-                {QUICK_ACTIONS.map((action, idx) => {
-                  const Icon = action.icon;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => onSendMessage(action.prompt)}
-                      className="quick-action-button"
-                    >
-                      <span className="action-button-left">
-                        <Icon size={13} className="action-icon" />
-                        <span className="action-label">{action.label}</span>
-                      </span>
-                      <ArrowRight size={12} className="action-arrow" />
-                    </button>
-                  );
-                })}
+              <div className="quick-actions-list" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {QUICK_ACTIONS.map((action, idx) => (
+                  <ActionCard
+                    key={idx}
+                    icon={action.icon}
+                    label={action.label}
+                    onClick={() => onSendMessage(action.prompt)}
+                  />
+                ))}
               </div>
             </div>
           </motion.div>
@@ -503,26 +497,17 @@ export default function RepositoryOverview({
             </div>
             <div className="card-content">
               <div className="metrics-grid">
-                <div className="metric-item glass-panel">
-                  <span className="metric-value">{metrics.totalFiles}</span>
-                  <span className="metric-label">Files</span>
-                </div>
-                <div className="metric-item glass-panel">
-                  <span className="metric-value">{metrics.totalFolders}</span>
-                  <span className="metric-label">Folders</span>
-                </div>
-                <div className="metric-item glass-panel">
-                  <span className="metric-value">
-                    {metrics.totalLoc >= 1000
+                <MetricCard value={metrics.totalFiles} label="Files" />
+                <MetricCard value={metrics.totalFolders} label="Folders" />
+                <MetricCard
+                  value={
+                    metrics.totalLoc >= 1000
                       ? `${(metrics.totalLoc / 1000).toFixed(1)}k`
-                      : metrics.totalLoc}
-                  </span>
-                  <span className="metric-label">Approx LOC</span>
-                </div>
-                <div className="metric-item glass-panel">
-                  <span className="metric-value">{metrics.maxDepth}</span>
-                  <span className="metric-label">Max Depth</span>
-                </div>
+                      : metrics.totalLoc
+                  }
+                  label="Approx LOC"
+                />
+                <MetricCard value={metrics.maxDepth} label="Max Depth" />
               </div>
             </div>
           </motion.div>
