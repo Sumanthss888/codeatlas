@@ -1,13 +1,17 @@
 import React, { forwardRef, useState } from "react";
+import ClearButton from "./ClearButton";
 const SearchField = forwardRef((props: any, ref: any) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <input
-      type="text"
-      ref={ref}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
-    />
+    <div>
+      <input
+        type="text"
+        ref={ref}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      />
+      {props.value && <ClearButton onClick={() => {}} />}
+    </div>
   );
 });
 SearchField.displayName = "SearchField";
