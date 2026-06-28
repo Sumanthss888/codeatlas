@@ -4124,3 +4124,11 @@ a:focus-visible,
   border-left: 3px solid var(--color-error);
   color: var(--color-error);
 }
+
+/* ── Unified SearchField ── */
+.search-field-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
