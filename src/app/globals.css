@@ -4131,4 +4131,5 @@ a:focus-visible,
   align-items: center;
   position: relative;
   width: 100%;
+  background: var(--bg-glass);
 }
