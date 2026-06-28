@@ -4134,3 +4134,6 @@ a:focus-visible,
   margin-right: 6px;
   flex-shrink: 0;
 }
+.search-field-container.focused .search-field-icon {
+  color: var(--accent-color);
+}
