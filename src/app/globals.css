@@ -4132,4 +4132,10 @@ a:focus-visible,
   position: relative;
   width: 100%;
   background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+}
+.search-field-container.compact {
+  height: 28px;
+  border-radius: 6px;
+  padding: 0 8px;
 }
