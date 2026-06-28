@@ -4133,14 +4133,10 @@ a:focus-visible,
   width: 100%;
   background: var(--bg-glass);
   border: 1px solid var(--border-default);
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
-.search-field-container.compact {
-  height: 28px;
-  border-radius: 6px;
-  padding: 0 8px;
-}
-.search-field-container.default {
-  height: 36px;
-  border-radius: 8px;
-  padding: 0 12px;
+.search-field-container.focused {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.15);
 }
