@@ -4126,14 +4126,10 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-input {
-  flex-grow: 1;
-  border: none !important;
-  outline: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: var(--text-primary) !important;
-  width: 100%;
-  height: 100%;
-  padding: 0 !important;
+.search-field-input::-webkit-search-decoration,
+.search-field-input::-webkit-search-cancel-button,
+.search-field-input::-webkit-search-results-button,
+.search-field-input::-webkit-search-results-decoration {
+  display: none;
+  -webkit-appearance: none;
 }
