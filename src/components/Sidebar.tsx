@@ -359,17 +359,12 @@ export default function Sidebar({
         <div className="sidebar-section-label">Explorer</div>
       </div>
 
-      <div className="sidebar-search-wrapper">
-        <span className="sidebar-search-icon">
-          <Search size={12} />
-        </span>
+      <div className="sidebar-section-search" style={{ padding: "0 var(--space-3) var(--space-3)", borderBottom: "1px solid var(--border-subtle)" }}>
         <input
           type="text"
-          className="sidebar-search-input"
-          placeholder="Filter files..."
-          aria-label="Filter codebase files"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Filter files..."
         />
       </div>
 
