@@ -4126,10 +4126,7 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-input::-webkit-search-decoration,
-.search-field-input::-webkit-search-cancel-button,
-.search-field-input::-webkit-search-results-button,
-.search-field-input::-webkit-search-results-decoration {
-  display: none;
-  -webkit-appearance: none;
+.search-field-input.mono {
+  font-family: var(--font-geist-mono), JetBrains Mono, monospace !important;
+  font-size: 11px !important;
 }
