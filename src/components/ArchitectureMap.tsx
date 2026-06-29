@@ -707,13 +707,9 @@ export default function ArchitectureMap({
 
           <div className="toolbar-right">
             {/* Search Input Box */}
-            <div className="sidebar-search-wrapper" style={{ width: "240px", background: "var(--bg-glass)", border: "1px solid var(--border-strong)" }}>
-              <span className="sidebar-search-icon">
-                <Search size={12} />
-              </span>
+            <div style={{ width: "240px", position: "relative" }}>
               <input
                 type="text"
-                className="sidebar-search-input"
                 placeholder="Search file node..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
