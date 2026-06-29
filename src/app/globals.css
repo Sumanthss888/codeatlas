@@ -4126,7 +4126,6 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-input.body {
-  font-family: inherit !important;
-  font-size: 12px !important;
+.search-field-container.compact .search-field-input.body {
+  font-size: 11.5px !important;
 }
