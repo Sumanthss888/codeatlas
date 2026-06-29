@@ -19,6 +19,7 @@ import {
 import { LogoIcon } from "./Logo";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import SearchField from "@/components/ui/search/SearchField";
 
 type TreeNode =
   | { kind: "folder"; name: string; path: string; children: TreeNode[] }
