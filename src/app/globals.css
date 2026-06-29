@@ -4126,7 +4126,7 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-input.mono {
-  font-family: var(--font-geist-mono), JetBrains Mono, monospace !important;
-  font-size: 11px !important;
+.search-field-input.body {
+  font-family: inherit !important;
+  font-size: 12px !important;
 }
