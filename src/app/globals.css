@@ -4126,6 +4126,6 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-container.compact .search-field-input.body {
-  font-size: 11.5px !important;
+.search-field-container.default .search-field-input.body {
+  font-size: 13px !important;
 }
