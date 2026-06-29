@@ -4126,6 +4126,101 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
+.search-field-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* Sizing Options */
+.search-field-container.compact {
+  height: 28px;
+  border-radius: 6px;
+  padding: 0 8px;
+}
+
+.search-field-container.default {
+  height: 36px;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+/* Focus State */
+.search-field-container.focused {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.15); /* Accent tint halo */
+}
+
+/* Dark mode override for focus */
+.dark .search-field-container.focused {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Icon */
+.search-field-icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.search-field-container.focused .search-field-icon {
+  color: var(--accent-color);
+}
+
+/* Input element */
+.search-field-input {
+  flex-grow: 1;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--text-primary) !important;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove default WebKit search input decorations */
+.search-field-input::-webkit-search-decoration,
+.search-field-input::-webkit-search-cancel-button,
+.search-field-input::-webkit-search-results-button,
+.search-field-input::-webkit-search-results-decoration {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Typography styles */
+.search-field-input.mono {
+  font-family: var(--font-geist-mono), JetBrains Mono, monospace !important;
+  font-size: 11px !important;
+}
+
+.search-field-input.body {
+  font-family: inherit !important;
+  font-size: 12px !important;
+}
+
+.search-field-container.compact .search-field-input.body {
+  font-size: 11.5px !important;
+}
+
+.search-field-container.default .search-field-input.body {
+  font-size: 13px !important;
+}
+
+/* Clear button */
 .search-field-clear {
   display: flex;
   align-items: center;
@@ -4140,3 +4235,9 @@ a:focus-visible,
   margin-left: 4px;
   flex-shrink: 0;
 }
+
+.search-field-clear:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
