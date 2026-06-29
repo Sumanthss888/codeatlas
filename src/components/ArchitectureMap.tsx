@@ -22,6 +22,7 @@ import {
   X
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import SearchField from "@/components/ui/search/SearchField";
 
 type Props = {
   files: RepoFile[];
