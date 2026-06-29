@@ -4126,6 +4126,17 @@ a:focus-visible,
 }
 
 /* ── Unified SearchField ── */
-.search-field-container.default .search-field-input.body {
-  font-size: 13px !important;
+.search-field-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  margin-left: 4px;
+  flex-shrink: 0;
 }
