@@ -1424,16 +1424,14 @@ export default function ArchitectureMap({
             gap: "4px",
           }}
         >
-          <div className="sidebar-search-wrapper" style={{ width: "100%", background: "var(--bg-glass)", border: "1px solid var(--border-strong)" }}>
-            <span className="sidebar-search-icon">
-              <Search size={12} />
-            </span>
-            <input
-              type="text"
-              className="sidebar-search-input"
-              placeholder="Search file node..."
+          <div style={{ width: "100%" }}>
+            <SearchField
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={setSearchQuery}
+              placeholder="Search file node..."
+              size="compact"
+              font="mono"
+              clearable
             />
           </div>
 
