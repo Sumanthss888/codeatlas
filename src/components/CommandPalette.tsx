@@ -346,17 +346,19 @@ export default function CommandPalette({
             aria-label="CodeAtlas Command Palette"
           >
             {/* Search Input Area */}
-            <div className="command-palette-search-wrapper">
-              <Search size={16} className="command-palette-search-icon" />
-              <input
-                ref={inputRef}
-                type="text"
-                className="command-palette-input"
-                placeholder="Type a file path or command..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
+            <div className="command-palette-search-wrapper" style={{ borderBottom: "none", padding: "12px 16px" }}>
+              <div style={{ flexGrow: 1, position: "relative" }}>
+                <SearchField
+                  ref={inputRef}
+                  value={query}
+                  onChange={setQuery}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type a file path or command..."
+                  size="default"
+                  font="body"
+                  clearable={false}
+                />
+              </div>
               <span className="command-palette-kbd-hint">ESC</span>
             </div>
 
