@@ -708,11 +708,13 @@ export default function ArchitectureMap({
           <div className="toolbar-right">
             {/* Search Input Box */}
             <div style={{ width: "240px", position: "relative" }}>
-              <input
-                type="text"
-                placeholder="Search file node..."
+              <SearchField
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={setSearchQuery}
+                placeholder="Search file node..."
+                size="compact"
+                font="mono"
+                clearable
               />
               
               {/* Autocomplete popup */}
