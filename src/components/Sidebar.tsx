@@ -360,11 +360,14 @@ export default function Sidebar({
       </div>
 
       <div className="sidebar-section-search" style={{ padding: "0 var(--space-3) var(--space-3)", borderBottom: "1px solid var(--border-subtle)" }}>
-        <input
-          type="text"
+        <SearchField
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={setSearchQuery}
           placeholder="Filter files..."
+          aria-label="Filter codebase files"
+          size="compact"
+          font="body"
+          clearable
         />
       </div>
 
