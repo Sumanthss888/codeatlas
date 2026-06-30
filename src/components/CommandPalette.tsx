@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import SearchField from "@/components/ui/search/SearchField";
 import type { RepoFile } from "@/app/page";
 import {
   Search,
